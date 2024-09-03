@@ -1,0 +1,277 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+  
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+                
+                    <!-- nouveauformations List Table -->
+                    <div class="card" style="padding: 10px">
+                                                                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+
+
+                            <div style=" float: right;text-align: right">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary me-sm-3 me-1 data-submit"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddnouveauformation"
+                                >
+                                    Ajouter un formation
+                                </button>
+                            </div>
+
+                            <div class="card-datatable table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="datatables-nouveauformations table border-top" id="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px"></th>
+                                            <th style="text-align:center">Code</th>
+                                            <th style="text-align:center">Date</th>
+                                            <th style="text-align:center">Participants</th>
+                                            <th style="text-align:center">Sujet</th>
+                                            <th style="text-align:center">Frais Formation</th>
+                                            <th style="text-align:center">Places Max</th>
+                                            <th style="text-align:center">Catégorie</th>
+                                            <th style="text-align:center">Approuvé</th>
+                                            <th style="text-align:center">emplacement/video</th>
+
+                                            <th style="text-align:center;width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let formation of formations">
+                                            <td style="text-align:center">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/3410/3410150.png" alt="" style="width:30px;">
+                                            </td>
+                                            <td style="text-align:center">{{ formation.code }}</td>
+                                            <td style="text-align:center">{{ formation.date | date }}</td>
+                                            <td style="text-align:center">{{ formation.nbrParticipant }}</td>
+                                            <td style="text-align:center">{{ formation.sujet }}</td>
+                                            <td style="text-align:center">{{ formation.fraisFormation }}</td>
+                                            <td style="text-align:center">{{ formation.nbrPlaceMax }}</td>
+                                            <td style="text-align:center">{{ formation.categ_formation.lib }}</td>
+                                            <td style="text-align:center">
+                                                {{ formation.approuve ? 'Approuvé' : 'Non Approuvé' }}
+                                              </td>
+                                              <td *ngIf="formation.emplacement" style="text-align: center;">
+                                                {{ formation.emplacement }}
+                                              </td>
+                                              <td *ngIf="formation.lienVideo" style="text-align: center;">
+                                                <a [href]="formation.lienVideo" target="_blank"style="text-decoration: none;">ouvrir</a>
+                                              </td>
+                                              <td *ngIf="formation.lienMeet" style="text-align: center;">
+                                                <a [href]="formation.lienMeet" target="_blank"style="text-decoration: none;">rejoindre la reunion</a>
+                                              </td>
+                                            <td  style="text-align:center">
+                                                <a *ngIf="!formation.approuve" (click)="edit(formation.id)" class="btn btn-sm btn-icon">
+                                                    <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                </a>
+                                                <a (click)="call_delete_modal(formation.id)" class="btn btn-sm btn-icon" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <form (ngSubmit)="delete()" class="add-new-nouveauformation pt-0">
+ <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content text-center">
+            <div class="modal-body p-0">
+                <div class="onboarding-media">
+                    <div class="mx-2">
+                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                    </div>
+                </div>
+                <div class="onboarding-content mb-0">
+                    <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+
+                                <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+                </form>
+
+
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-1"
+                    id="offcanvasAddnouveauformation"
+                    aria-labelledby="offcanvasAddnouveauformationLabel"
+                >
+                    <div class="offcanvas-header">
+                        <h5
+                            id="offcanvasAddnouveauformationLabel"
+                            class="offcanvas-title"
+                        >
+                            Ajouter un formation
+
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close text-reset"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div
+                        class="offcanvas-body mx-0 flex-grow-0"
+                    >
+
+                    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)" enctype="multipart/form-data" class="row g-3">
+                        <div class="mb-3">
+                            <label class="form-label" for="cat_formation">Catégorie des formations</label>
+                            <select name="cat_formation" class="form-select" ngModel required #cat_formation="ngModel"(change)="changeCateg($event)"  >
+                                <option value="null" [disabled]="true">Sélectionner une catégorie</option>
+                                <option *ngFor="let cat of categ_formations" [value]="cat.id">{{ cat.lib }}</option>
+
+                            </select>
+                            <div class="text-danger" *ngIf="cat_formation.invalid && (cat_formation.dirty || cat_formation.touched)">
+                                <div *ngIf="cat_formation.errors?.['required']">La catégorie est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3" *ngIf="isvideo">
+                            <label class="form-label">File Upload</label>
+                            <input type="file" accept="video/*" (change)="onSelectFile($event)" >
+                            <img [src]="imgURL" height="200" *ngIf="imgURL">
+                        </div>
+                        <div class="mb-3" *ngIf="ispresentiel">
+                            <label class="form-label" for="emplacement">emplacement</label>
+                            <input type="text" name="emplacement" class="form-control" ngModel required #emplacement="ngModel">
+                            <div class="text-danger" *ngIf="emplacement.invalid && (emplacement.dirty || emplacement.touched)">
+                                <div *ngIf="emplacement.errors?.['required']">L'emplacement est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="date">date</label>
+                            <input type="date" name="date" class="form-control" ngModel required #date="ngModel">
+                            <div class="text-danger" *ngIf="date.invalid && (date.dirty || date.touched)">
+                                <div *ngIf="date.errors?.['required']">Le date est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="sujet">Sujet</label>
+                            <input type="text" name="sujet" class="form-control" ngModel required #sujet="ngModel">
+                            <div class="text-danger" *ngIf="sujet.invalid && (sujet.dirty || sujet.touched)">
+                                <div *ngIf="sujet.errors?.['required']">Le Sujet est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="fraisFormation">frais Formation</label>
+                            <input type="number" name="fraisFormation" class="form-control" ngModel required #fraisFormation="ngModel">
+                            <div class="text-danger" *ngIf="fraisFormation.invalid && (fraisFormation.dirty || fraisFormation.touched)">
+                                <div *ngIf="fraisFormation.errors?.['required']">Le frais Formation est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="nbrPlaceMax">nbrPlaceMax</label>
+                            <input type="number" name="nbrPlaceMax" class="form-control" ngModel required #nbrPlaceMax="ngModel">
+                            <div class="text-danger" *ngIf="nbrPlaceMax.invalid && (nbrPlaceMax.dirty || nbrPlaceMax.touched)">
+                                <div *ngIf="nbrPlaceMax.errors?.['required']">Le nbrPlaceMax est requis.</div>
+                            </div>
+                        </div>
+                      
+              
+                        <!-- Ajoutez d'autres champs requis pour les instructeurs ici -->
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="submitButton" [disabled]="userForm.invalid"data-bs-dismiss="offcanvas">Valider</button>
+                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Annuler</button>
+                    </form>
+                    
+                    
+                    </div>
+                </div>
+                <!-- / Content -->
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

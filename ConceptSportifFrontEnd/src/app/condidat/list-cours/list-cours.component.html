@@ -1,0 +1,61 @@
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+      <app-sidebar></app-sidebar>
+      <!-- / Menu -->
+  
+      <!-- Layout container -->
+      <div class="layout-page">
+        <!-- Navbar -->
+        <app-navbar></app-navbar>
+        <!-- / Navbar -->
+  
+        <!-- Content wrapper -->
+          <!-- Tabs -->
+          <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+          <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+  
+          <div class="tabs">
+           
+            <div
+              class="tab-item"
+              [class.active]="selectedTab === 'presentiel'"
+              (click)="selectTab('presentiel')"
+            >
+              Présentiel
+            </div>
+            <div
+              class="tab-item"
+              [class.active]="selectedTab === 'enligne'"
+              (click)="selectTab('enligne')"
+            >
+              En Ligne
+            </div>
+            <div
+              class="tab-item"
+              [class.active]="selectedTab === 'alademande'"
+              (click)="selectTab('alademande')"
+            >
+              A la demande
+            </div>
+          </div>
+          
+          <div class="tab-content" id="myTabContent">
+            <app-courspresentiel *ngIf="selectedTab === 'presentiel'" [coursPresentiel]="coursPresentiel" (demandeEvent)="demande($event)"></app-courspresentiel>
+            <app-cours-enligne *ngIf="selectedTab === 'enligne'" [CoursEnLigne]="coursenligne"  (demandeEvent)="demande($event)"></app-cours-enligne>
+            <app-coursalademande *ngIf="selectedTab === 'alademande'"  [coursalademande]="coursalademande"  (demandeEvent)="demande($event)"></app-coursalademande>
+          </div>
+        </div>
+        
+          
+        <!-- / Content wrapper -->
+      </div>
+      <!-- / Layout page -->
+    </div>
+    <!-- / Layout container -->
+  
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+  <!-- / Layout wrapper -->
+  

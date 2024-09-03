@@ -1,0 +1,187 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+  
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+
+                    <!-- nouveauLigneCours List Table -->
+                    <div class="card" style="padding: 10px">
+                                                                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+
+
+                           
+                            <div class="card-datatable table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="datatables-nouveauLigneCours table border-top" id="table" *ngIf="'cours' === c">
+                                    <thead>
+                                      <tr>
+                                        <th style="width: 50px"></th>
+                                        <th style="text-align:center">Description cours</th>
+                                        <th style="text-align:center">Instructeur de cours</th>
+                                        <th style="text-align:center">Candidat</th>
+                                        <th style="text-align:center">payé</th>
+                                        <th style="text-align:center">Approuvé</th>
+                                        <th style="text-align:center;width: 90px"></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let item of LigneCours">
+                                        <td style="text-align:center">
+                                          <img src="https://cdn-icons-png.flaticon.com/512/3410/3410150.png" alt="" style="width:30px;">
+                                        </td>
+                                        <td style="text-align:center">{{ item.cours.description }}
+                                            <div class="categories">
+                                               Categories : {{ item.cours.categorie_cours.description }}
+
+                                            </div>
+                                            <div class="time">
+                                                <span>Date :{{ item.cours.date | date:'dd/MM/yyyy' }}</span>
+                                            </div>
+                                            <div class="time">
+                                                <span>Durée : {{ item.cours.duree }}h</span> de {{item.cours.hdeb}} à {{item.cours.hfin}}
+                                            </div>
+                                            <div class="time">
+                                                <span>Frais : {{ item.cours.frais }} dt</span>
+                                            </div>
+                                        </td>
+                                        <td style="text-align:center">{{ item.cours.instructor.nom }} {{ item.cours.instructor.prenom }}</td>
+
+                                        <td style="text-align:center">{{ item.condidat.nom}} {{ item.condidat.prenom}}</td>
+                                        <td style="text-align:center">{{ item.paye ? 'Payé' : 'Non Payé' }}
+                                       
+                                        <td style="text-align:center">{{ item.approuve ? 'Approuvé' : 'Non approuvé' }}
+                                        
+                                        </td>
+                                        <td style="text-align:center">
+                                            <a *ngIf="!item.approuve" class="btn btn-sm btn-icon custom-link" (click)="approuve(item)">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="">
+                                                Approuvé
+                                              </a>
+                                            <br>
+                                            <a  *ngIf="item.approuve"class="btn btn-sm btn-icon" (click)="deapprouve(item)" data-bs-toggle="modal" data-bs-target="#onboardImageModal" style="background-color: red; color: white; width: 100%; padding: 15px; display: flex; align-items: center;">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/5499/5499405.png" alt="" style="width: 20px; margin-right: 5px;">
+                                                Supprimer
+                                              </a>   
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="datatables-nouveauLigneCours table border-top" id="table" *ngIf="'formation' === c">
+                                    <thead>
+                                      <tr>
+                                        <th style="width: 50px"></th>
+                                        <th style="text-align:center">Description formation</th>
+                                        <th style="text-align:center">Instructeur de formation</th>
+                                        <th style="text-align:center">Candidat</th>
+                                        <th style="text-align:center">payé</th>
+                                        <th style="text-align:center">Approuvé</th>
+                                        <th style="text-align:center;width: 90px"></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let item of LigneCours">
+                                        <td style="text-align:center">
+                                          <img src="https://cdn-icons-png.flaticon.com/512/3410/3410150.png" alt="" style="width:30px;">
+                                        </td>
+                                        <td style="text-align:center">{{ item.formation.sujet }}
+                                            <div class="categories">
+                                                Categories : {{ item.formation.categ_formation.lib }}
+
+                                             </div>
+                                             <div class="time">
+                                                 <span>Durée : {{ item.formation.categ_formation.duree }}h</span>
+                                             </div>
+                                             <div class="time">
+                                                 <span>Frais : {{ item.formation.fraisFormation }} dt</span>
+                                             </div>
+                                        
+                                        </td>
+                                        <td style="text-align:center">{{ item.formation.instructor.nom }} {{ item.formation.instructor.prenom }}</td>
+
+                                        <td style="text-align:center">{{ item.condidat.nom}} {{ item.condidat.prenom}}</td>
+                                        <td style="text-align:center">{{ item.paye ? 'Payé' : 'Non Payé' }}
+                                       
+                                        <td style="text-align:center">{{ item.approuve ? 'Approuvé' : 'Non approuvé' }}
+                                        
+                                        </td>
+                                        <td style="text-align:center">
+                                            <a *ngIf="!item.approuve" class="btn btn-sm btn-icon custom-link" (click)="approuve(item)">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="">
+                                                Approuvé
+                                              </a>
+                                            <br>
+                                            <a  *ngIf="item.approuve"class="btn btn-sm btn-icon" (click)="call_delete_modal(item.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal" style="background-color: red; color: white; width: 100%; padding: 15px; display: flex; align-items: center;">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/5499/5499405.png" alt="" style="width: 20px; margin-right: 5px;">
+                                                Supprimer
+                                              </a>   
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                
+                            </div>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+            
+                <!-- / Content -->
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

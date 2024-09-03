@@ -1,0 +1,127 @@
+<div class="authentication-wrapper authentication-cover">
+    <div class="authentication-inner row m-0">
+        <!-- /Left Text -->
+        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5" style="background-image: url('https://expertdev-solutions.com/zen_gym_site/images/cover.jpg'); background-repeat: no-repeat; background-size: 100% 100vh;">
+            <div class="w-100 d-flex justify-content-center" >
+            </div>
+        </div>
+        <!-- /Left Text -->
+
+        <!-- Login -->
+        <div
+            class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"
+        >
+            <div class="divlogo">
+                <!-- Logo -->
+                <div class="app-brand mb-5">
+                    <a
+                        href="#"
+                        class="app-brand-link gap-2"
+                    >
+                                <span class="app-brand-logo demo"
+                                >
+                                               <img src="https://expertdev-solutions.com/zen_gym_site/images/logo.png"  style="width:100%;height: 100%;">
+                                </span>
+
+                    </a>
+                </div>
+                <!-- /Logo -->
+                <h4 class="mb-2">Bienvenue chez ZENGYM ! 👋</h4>
+                <p class="mb-4">
+                    Veuillez connecter à votre compte et commencer l'aventure
+                </p>
+
+                    <form id="formAuthentication" class="mb-3" #f=ngForm (ngSubmit)="onSubmit(f)">
+                      
+                        <div class="mb-3">
+                            <label class="form-label" for="nom">Nom</label>
+                            <input type="text" name="nom" class="form-control" ngModel required pattern="[a-zA-Z0-9]+" #nom="ngModel">
+                            <div class="text-danger" *ngIf="nom.invalid && (nom.dirty || nom.touched)">
+                                <div *ngIf="nom.errors?.['required']">Le nom est requis.</div>
+                                <div *ngIf="nom.errors?.['pattern']">Le nom ne doit contenir que des lettres et des chiffres.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="prenom">Prénom</label>
+                            <input type="text" name="prenom" class="form-control" ngModel required #prenom="ngModel">
+                            <div class="text-danger" *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)">
+                                <div *ngIf="prenom.errors?.['required']">Le prénom est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="adresse">Adresse</label>
+                            <input type="text" name="adresse" class="form-control" ngModel required #adresse="ngModel">
+                            <div class="text-danger" *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)">
+                                <div *ngIf="adresse.errors?.['required']">L'adresse est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="code_postal">Code postale</label>
+                            <input type="text" name="code_postal" class="form-control" ngModel required #code_postal="ngModel">
+                            <div class="text-danger" *ngIf="code_postal.invalid && (code_postal.dirty || code_postal.touched)">
+                                <div *ngIf="code_postal.errors?.['required']">Le Code postale est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tel">Téléphone 1</label>
+                            <input type="text" name="tel" class="form-control" ngModel required #tel="ngModel">
+                            <div class="text-danger" *ngIf="tel.invalid && (tel.dirty || tel.touched)">
+                                <div *ngIf="tel.errors?.['required']">Le Téléphone 1 est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tel2">Téléphone 2</label>
+                            <input type="text" name="tel2" class="form-control" ngModel required #tel2="ngModel">
+                            <div class="text-danger" *ngIf="tel2.invalid && (tel2.dirty || tel2.touched)">
+                                <div *ngIf="tel2.errors?.['required']">Le Téléphone 2 est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" name="email" class="form-control" ngModel required email #mail="ngModel">
+                            <div class="text-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+                                <div *ngIf="mail.errors?.['required']">L'email est requis.</div>
+                                <div *ngIf="mail.errors?.['email']">L'email doit être une adresse email valide.</div>
+                            </div>
+                        </div>
+                    
+                        <div class="mb-3">
+  
+                        <div class="mb-3 form-password-toggle">
+                            <label class="form-label" for="password">Mot de passe</label>
+
+                            <div class="input-group input-group-merge">
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control"
+                                    name="password"
+                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                    aria-describedby="password" ngModel required #password=ngModel />
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                            </div>
+                            <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+                                <div *ngIf="password.errors?.['required']"> Le mot de passe est requis</div>
+                                <div *ngIf="password.errors?.['pattern']"> Le format du mot de passe est incorrect</div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary d-grid w-100" type="submit" [disabled]="f.invalid">S'inscrire</button>
+                        </div>
+                    </form>
+                    <p class="text-center">
+                        <span>Vous avez un compte sur notre plateforme ?</span>
+                        <a routerLink="../login">
+                            <span>acceder au  compte</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!-- /Enregistrement -->
+        </div>
+    </div>
+
+
+  <!-- / Content -->

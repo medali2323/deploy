@@ -1,0 +1,26 @@
+<form [formGroup]="myform" (ngSubmit)="Saveuser()">
+  <h1 mat-dialog-title>{{inputdata.title}}</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>zone</mat-label>
+      <input formControlName="zone" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Start time</mat-label>
+      <input matInput formControlName="startTime" [ngxMatDatetimePicker]="startTimePicker">
+      <mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #startTimePicker></ngx-mat-datetime-picker>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>End time</mat-label>
+      <input matInput formControlName="endTime" [ngxMatDatetimePicker]="endTimePicker">
+      <mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #endTimePicker></ngx-mat-datetime-picker>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button type="submit" color="primary">Save</button>
+    <a (click)="closepopup()" mat-raised-button color="warn">Close</a>
+  </div>
+</form>

@@ -1,0 +1,253 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+  
+                <!-- Content -->
+
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+                
+                    <!-- nouveauSalleDeSports List Table -->
+                    <div class="card" style="padding: 10px">
+                                                                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+
+
+                            <div style=" float: right;text-align: right">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary me-sm-3 me-1 data-submit"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddnouveauSalleDeSport"
+                                >
+                                    Ajouter un Salle De Sport
+                                </button>
+                            </div>
+
+                            <div class="card-datatable table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                    class="datatables-nouveauSalleDeSports table border-top"
+                                    id="table"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center">Code</th>
+                                            <th style="text-align:center">Nom</th>
+                                            <th style="text-align:center">Adresse</th>
+                                            <th style="text-align:center">Téléphone 1</th>
+                                            <th style="text-align:center">Téléphone 2</th>
+                                            <th style="text-align:center">Email</th>
+            
+                                            <th style="text-align:center;width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr  *ngFor="let s  of SalleDeSports">
+
+                                               
+                                               <td style="text-align:center">{{ s.code }}</td>
+                                               <td style="text-align:center">{{ s.nomsalle }}</td>
+                                               <td style="text-align:center">{{ s.adresse }}</td>
+                                               <td style="text-align:center">{{ s.tel1 }}</td>
+                                               <td style="text-align:center">{{ s.tel2 }}</td>
+
+                                               <td style="text-align:center">{{ s.email }}</td>
+                                               
+                                                <td style="text-align:center">
+
+
+                                                    <a (click)="edit(s.id)" class="btn btn-sm btn-icon">
+                                                        <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                    <a  class="btn btn-sm btn-icon" (click)="call_delete_modal(s.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                                                                                                </tbody>
+                                </table>
+                            </div>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <form (ngSubmit)="delete()" class="add-new-nouveauSalleDeSport pt-0">
+ <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content text-center">
+            <div class="modal-body p-0">
+                <div class="onboarding-media">
+                    <div class="mx-2">
+                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                    </div>
+                </div>
+                <div class="onboarding-content mb-0">
+                    <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+
+                                <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+                </form>
+
+
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-1"
+                    id="offcanvasAddnouveauSalleDeSport"
+                    aria-labelledby="offcanvasAddnouveauSalleDeSportLabel"
+                >
+                    <div class="offcanvas-header">
+                        <h5
+                            id="offcanvasAddnouveauSalleDeSportLabel"
+                            class="offcanvas-title"
+                        >
+                            Ajouter une Salle De Sport
+
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close text-reset"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div
+                        class="offcanvas-body mx-0 flex-grow-0"
+                    >
+
+                    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)" id="addNewUserForm" class="row g-3">
+                        <div class="mb-3">
+                            <label class="form-label" for="nom">Nom</label>
+                            <input type="text" name="nomsalle" class="form-control" ngModel required  #nomsalle="ngModel">
+                            <div class="text-danger" *ngIf="nomsalle.invalid && (nomsalle.dirty || nomsalle.touched)">
+                                <div *ngIf="nomsalle.errors?.['required']">Le nom est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="adresse">Adresse</label>
+                            <input type="text" name="adresse" class="form-control" ngModel required #adresse="ngModel">
+                            <div class="text-danger" *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)">
+                                <div *ngIf="adresse.errors?.['required']">L'adresse est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tel1">Téléphone 1</label>
+                            <input type="text" name="tel1" class="form-control" ngModel required #tel1="ngModel">
+                            <div class="text-danger" *ngIf="tel1.invalid && (tel1.dirty || tel1.touched)">
+                                <div *ngIf="tel1.errors?.['required']">Le Téléphone 1 est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tel2">Téléphone 2</label>
+                            <input type="text" name="tel2" class="form-control" ngModel required #tel2="ngModel">
+                            <div class="text-danger" *ngIf="tel2.invalid && (tel2.dirty || tel2.touched)">
+                                <div *ngIf="tel2.errors?.['required']">Le Téléphone 2 est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="mail">Email</label>
+                            <input type="email" name="email" class="form-control" ngModel required email #email="ngModel">
+                            <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                                <div *ngIf="email.errors?.['required']">L'email est requis.</div>
+                                <div *ngIf="email.errors?.['email']">L'email doit être une adresse email valide.</div>
+                            </div>
+                        </div>
+                       
+                       
+                
+                 
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="submitButton" [disabled]="userForm.invalid">Valider</button>
+                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Annuler</button>
+                    </form>
+                    
+                    </div>
+                </div>
+                <!-- / Content -->
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

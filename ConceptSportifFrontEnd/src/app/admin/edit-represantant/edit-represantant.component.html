@@ -1,0 +1,258 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+       <!-- Content -->
+       <div class="container-xxl flex-grow-1 container-p-y">
+
+        <div class="row">
+                                                            <!-- User Sidebar -->
+            <div
+                class="col-xl-6 col-lg-5 col-md-5 order-1 order-md-0"
+            >
+                <!-- User Card -->
+
+                <div class="card mb-12">
+                    <div class="card-body">
+                        <div class="user-avatar-section">
+                            <div
+                                class="d-flex align-items-center flex-column"
+                            >
+                                                                                <img
+                                        class="img-fluid rounded my-4"
+                                        src="https://www.geiq-ams.fr/wp-content/uploads/2016/05/user-2-300x300.png"                              width="110"
+                                        alt="User avatar"
+                                    />
+                                                                            <div
+                                    class="user-info text-center"
+                                >
+                                    <h4 class="mb-2">
+                                     {{represantant.username}}
+                                    </h4>
+                                    <span
+                                        class="badge bg-label-secondary"
+                                    >represantants</span
+                                    >
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <h5 class="pb-2 border-bottom mb-4">
+                            Détails
+                        </h5>
+                        <div class="info-container">
+                            <form (ngSubmit)="updaterepresantant()" id="formaddmois2" class="row g-3">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="prenom">Prénom</label>
+                                    <input type="text" class="form-control" id="prenom" [value]="represantant.prenom" name="prenom" aria-label="Prénom" [(ngModel)]="represantant.prenom" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="nom">Nom</label>
+                                    <input type="text" class="form-control" id="nom" [value]="represantant.nom" name="nom" aria-label="Nom" [(ngModel)]="represantant.nom" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="mail">Email</label>
+                                    <input type="email" class="form-control" id="mail" [value]="represantant.email" name="EMAIL" aria-label="Email" [(ngModel)]="represantant.email" />
+                                    <input type="hidden" class="form-control" id="EMAIL_OLD" value="a@a" name="mail_old" aria-label="content.EMAIL" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="adresse">Adresse</label>
+                                    <input type="text" class="form-control" id="adresse" [value]="represantant.adresse" name="adresse" aria-label="Adresse" [(ngModel)]="represantant.adresse" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="tel">Téléphone</label>
+                                    <input type="text" class="form-control" id="tel" name="tel" [value]="represantant.tel" aria-label="Téléphone" [(ngModel)]="represantant.tel" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="email">Nom d'utilisateur</label>
+                                    <input type="text" class="form-control" id="email" [value]="represantant.username" name="email" aria-label="Login" [(ngModel)]="represantant.username" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="raisonSociale">Raison Sociale</label>
+                                    <input type="text" class="form-control" id="raisonSociale" [value]="represantant.raisonSociale" name="raisonSociale" aria-label="Raison Sociale" [(ngModel)]="represantant.raisonSociale" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="contact">Contact</label>
+                                    <input type="text" class="form-control" id="contact" [value]="represantant.contact" name="contact" aria-label="Contact" [(ngModel)]="represantant.contact" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="mf">MF</label>
+                                    <input type="text" class="form-control" id="mf" [value]="represantant.mf" name="mf" aria-label="MF" [(ngModel)]="represantant.mf" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="rc">RC</label>
+                                    <input type="text" class="form-control" id="rc" [value]="represantant.rc" name="rc" aria-label="RC" [(ngModel)]="represantant.rc" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="localisation">Localisation</label>
+                                    <input type="text" class="form-control" id="localisation" [value]="represantant.localisation" name="localisation" aria-label="Localisation" [(ngModel)]="represantant.localisation" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <!-- Assuming categRep is a dropdown/select field -->
+                                    <label class="form-label" for="categRep">Catégorie Rep</label>
+                                    <select class="form-select" id="categRep" name="categRep" aria-label="Catégorie Rep"  [value]="represantant.categRep.id">
+                                        <option value="" disabled selected>Choisir une Categorie</option>
+                                        <option *ngFor="let c of catreps" [ngValue]="c.id">{{ c.description }}</option>    
+                                                                    </select>
+                                </div>
+                                <div class="d-flex justify-content-center pt-3">
+                                    <button type="submit" id="submitButton" class="btn btn-primary me-sm-3 me-1 data-submit">Modifier</button>
+                                </div>
+                            </form>
+                            
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- /User Card -->
+
+
+            </div>
+            <!--/ User Sidebar -->
+
+            <div
+                class="col-xl-6 col-lg-5 col-md-5 order-1 order-md-0"
+            >
+
+                <div class="card mb-12">
+                    <div class="card-body">
+
+                        <div class="user-avatar-section">
+                            <div
+                                class="d-flex align-items-center flex-column"
+                            >
+                                <img
+                                    class="img-fluid rounded my-4"
+                                    src="https://cdn-icons-png.flaticon.com/512/6195/6195699.png"
+                                    height="110"
+                                    width="110"
+                                    alt="User avatar"
+                                />
+                                <div
+                                    class="user-info text-center"
+                                >
+                                    <h4 class="mb-2">
+                                        1
+                                        packk
+                                    </h4>
+                                    <span
+                                        class="badge bg-label-secondary"
+                                    >Utilisateurs</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="pb-2 border-bottom mb-4">
+                            Modifier le mot de passe
+                        </h5>
+                        <div class="info-container">
+                            <form method="POST" id="editPasswordForm" action="https://expertdev-solutions.com/zen_gym_site/represantant/update_represantant_password/1" class="row g-3">
+                                <input type="hidden" name="_token" value="ZuURlSIqrxLzj7Gu2Tvr3tLziQckx6uPhPMaS3qm">
+                                <div class="col-12 col-md-12">
+                                    <label
+                                        class="form-label"
+                                        for="ancienpassword"
+                                    >Ancien mot de passe</label
+                                    >
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        id="ancienpassword"
+                                        placeholder="******"
+                                        name="ancienpassword"
+                                        aria-label="******"
+                                    />
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        class="form-label"
+                                        for="mail"
+                                    >Nouveau mot de passe</label
+                                    >
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        id="password"
+                                        placeholder="******"
+                                        name="password"
+                                        aria-label="******"
+                                    />
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        class="form-label"
+                                        for="Salaire"
+                                    >Confirmer le mot de passe</label
+                                    >
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        id="conf_password"
+                                        placeholder="******"
+                                        name="conf_password"
+                                        aria-label="******"
+                                    />
+                                </div>
+
+
+
+                                <div class="d-flex justify-content-center pt-3">
+
+                                    <button type="submit" class="btn btn-primary"  id="submitButton2">Modifier</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

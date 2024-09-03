@@ -1,0 +1,96 @@
+<div class="authentication-wrapper authentication-cover">
+    <div class="authentication-inner row m-0">
+        <!-- /Left Text -->
+        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center p-5" style="background-image: url('https://expertdev-solutions.com/zen_gym_site/images/cover.jpg'); background-repeat: no-repeat; background-size: 100% 100vh;">
+            <div class="w-100 d-flex justify-content-center" >
+            </div>
+        </div>
+        <!-- /Left Text -->
+
+        <!-- Login -->
+        <div
+            class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4"
+        >
+            <div class="w-px-400 mx-auto">
+                <!-- Logo -->
+                <div class="app-brand mb-5">
+                    <a
+                        href="#"
+                        class="app-brand-link gap-2"
+                    >
+                                <span class="app-brand-logo demo"
+                                >
+                                               <img src="https://expertdev-solutions.com/zen_gym_site/images/logo.png" style="width:80%;">
+                                </span>
+
+                    </a>
+                </div>
+                <!-- /Logo -->
+                <h4 class="mb-2">Bienvenue chez ZENGYM ! 👋</h4>
+                <p class="mb-4">
+                    Veuillez connecter à votre compte et commencer l'aventure
+                </p>
+
+                    <form id="formAuthentication" class="mb-3" #f=ngForm (ngSubmit)="onSubmit(f)">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email ou Nom d'utilisateur</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="Entrez votre email ou nom d'utilisateur"
+                                autofocus ngModel required
+                                #email=ngModel pattern="[a-zA-Z0-9.]+@[a-zA-Z]+.[a-zA-Z]{2,4}">
+                        </div>
+                        <div class="alert alert-danger" *ngIf="email.invalid && email.touched">
+                            <div *ngIf="email.errors?.['required']"> L'email est requis</div>
+                            <div *ngIf="email.errors?.['pattern']"> Le format de l'email est incorrect</div>
+                        </div>
+                        <div class="mb-3 form-password-toggle">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="password">Mot de passe</label>
+                                <a routerLink="../forget_password">
+                                    <small>Mot de passe oublié ?</small>
+                                </a>
+                            </div>
+                            <div class="input-group input-group-merge">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control"
+                                    name="password"
+                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                    aria-describedby="password" ngModel required #password=ngModel />
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                            </div>
+                            <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+                                <div *ngIf="password.errors?.['required']"> Le mot de passe est requis</div>
+                                <div *ngIf="password.errors?.['pattern']"> Le format du mot de passe est incorrect</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remember-me" />
+                                <label class="form-check-label" for="remember-me"> Se souvenir de moi </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary d-grid w-100" type="submit" [disabled]="f.invalid">Se connecter</button>
+                        </div>
+                    </form>
+                    <h6 class="danger" style="color: red;text-align: center;">{{m}}</h6>
+                    <p class="text-center">
+                        <span>Nouveau sur notre plateforme ?</span>
+                        <a routerLink="../register">
+                            <span>Créer un compte</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!-- /Enregistrement -->
+        </div>
+    </div>
+
+
+  <!-- / Content -->

@@ -1,0 +1,450 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+  
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+                
+                    <!-- nouveauRepresantants List Table -->
+                    <div class="card" style="padding: 10px">
+                                                                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+
+
+                            <div style=" float: right;text-align: right">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary me-sm-3 me-1 data-submit"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddnouveauRepresantant"
+                                >
+                                    Ajouter un représentant
+                                </button>
+                            </div>
+
+                            <div class="card-datatable table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                    class="datatables-nouveauRepresantants table border-top"
+                                    id="table"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px"></th>
+                                            <th style="text-align:center">Nom</th>
+                                            <th style="text-align:center">Prénom</th>
+                                            <th style="text-align:center">Email</th>
+                                            <th style="text-align:center">Adresse</th>
+                                            <th style="text-align:center">Téléphone</th>
+                                            <th style="text-align:center">Raison sociale</th>
+                                            <th style="text-align:center">Contacte</th>
+                                            <th style="text-align:center">Matricule fiscale</th>
+                                            <th style="text-align:center">Registre de commerce</th>
+                                            <th style="text-align:center">Localisation</th>
+                                            <th style="text-align:center">Catégorie</th>
+                                            <th style="text-align:center">Nom d&#039;utilisateur</th>
+            
+                                            <th style="text-align:center;width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr  *ngFor="let rep  of Represantants">
+
+                                                <td style="text-align:center">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3410/3410150.png" alt="" style="width:30px;">
+                                                </td>
+                                                <td>{{ rep.nom }}</td>
+                                                <td>{{ rep.prenom }}</td>
+                                                <td>{{ rep.email }}</td>
+                                                <td>{{ rep.adresse }}</td>
+                                                <td>{{ rep.tel }}</td>
+                                                <td>{{ rep.raisonSociale }}</td>
+                                                <td>{{ rep.contact }}</td>
+                                                <td>{{ rep.mf }}</td>
+                                                <td>{{ rep.rc }}</td>
+                                                <td>{{ rep.localisation }}</td>
+                                                <td>{{ rep.categRep.description }}</td>
+                                                <td>{{ rep.username }}</td>
+                                                <td style="text-align:center">
+
+
+                                                    <a (click)="edit(rep.id)" class="btn btn-sm btn-icon">
+                                                        <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                    <a  class="btn btn-sm btn-icon" (click)="call_delete_modal(rep.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                                                                                                </tbody>
+                                </table>
+                            </div>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <form (ngSubmit)="delete()" class="add-new-nouveauRepresantant pt-0">
+ <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content text-center">
+            <div class="modal-body p-0">
+                <div class="onboarding-media">
+                    <div class="mx-2">
+                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                    </div>
+                </div>
+                <div class="onboarding-content mb-0">
+                    <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+
+                                <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+                </form>
+
+
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-1"
+                    id="offcanvasAddnouveauRepresantant"
+                    aria-labelledby="offcanvasAddnouveauRepresantantLabel"
+                >
+                    <div class="offcanvas-header">
+                        <h5
+                            id="offcanvasAddnouveauRepresantantLabel"
+                            class="offcanvas-title"
+                        >
+                            Ajouter un représentant
+
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close text-reset"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div
+                        class="offcanvas-body mx-0 flex-grow-0"
+                    >
+
+                    <form   (ngSubmit)="submitForm()" id="addNewUserForm" class="row g-3">
+                      
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="nom"
+                            >Nom</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="nom"
+                                placeholder="Nom"
+                                name="nom"
+                                aria-label="Nom"
+                                required [(ngModel)]="nouveauRepresantant.nom" 
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="prenom"
+                            >Prénom</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="prenom"
+                                placeholder="Prénom"
+                                name="prenom"
+                                aria-label="Prénom"
+                                required [(ngModel)]="nouveauRepresantant.prenom" 
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="mail"
+                            >Email</label
+                            >
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="mail"
+                                placeholder="Email"
+                                name="mail"
+                                aria-label="Email"
+                                required
+                                required [(ngModel)]="nouveauRepresantant.email" 
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="adresse"
+                            >Adresse</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="adresse"
+                                placeholder="Adresse"
+                                name="adresse"
+                                aria-label="Adresse"
+                                required [(ngModel)]="nouveauRepresantant.adresse" 
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="tel"
+                            >Téléphone</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="tel"
+                                placeholder="Téléphone"
+                                name="tel"
+                                aria-label="Téléphone"
+                                required [(ngModel)]="nouveauRepresantant.tel" 
+
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="raison_social"
+                            >Raison sociale</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="raison_social"
+                                placeholder="Raison sociale"
+                                name="raison_social"
+                                aria-label="Raison sociale"
+                                required [(ngModel)]="nouveauRepresantant.raison_social" 
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="contact"
+                            >Contacte</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="contact"
+                                placeholder="Contacte"
+                                name="contact"
+                                aria-label="Contacte"
+                                required [(ngModel)]="nouveauRepresantant.contact" 
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="mf"
+                            >Matricule fiscale</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="mf"
+                                placeholder="Matricule fiscale"
+                                name="mf"
+                                aria-label="Matricule fiscale"
+                                required [(ngModel)]="nouveauRepresantant.mf" 
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="rc"
+                            >Registre de commerce</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="rc"
+                                placeholder="Registre de commerce"
+                                name="rc"
+                                aria-label="Registre de commerce"
+                                required [(ngModel)]="nouveauRepresantant.rc" 
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="localisation"
+                            >Localisation</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="localisation"
+                                placeholder="Localisation"
+                                name="localisation"
+                                aria-label="Localisation"
+                                required [(ngModel)]="nouveauRepresantant.localisation" 
+
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="Categ_rep_id">Catégories des représentants</label>
+                            <select id="cat_inst_id" name="cat_inst_id" class="select2 form-select" required [(ngModel)]="nouveauRepresantant.catrep_id">
+                                <option *ngFor="let Categ_rep of Categ_rep" [value]="Categ_rep.id">{{ Categ_rep.description }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="email"
+                            >Nom d&#039;utilisateur</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="email"
+                                placeholder="Nom d&#039;utilisateur"
+                                name="email"
+                                aria-label="Nom d&#039;utilisateur"
+                                required [(ngModel)]="nouveauRepresantant.username" 
+
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="password"
+                            >Mot de passe</label
+                            >
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                placeholder="*****"
+                                name="password"
+                                aria-label="Mot de passe"
+                                required [(ngModel)]="nouveauRepresantant.password" 
+
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            class="btn btn-primary me-sm-3 me-1 data-submit"
+                            id="submitButton"
+                        >
+                            Valider
+                        </button>
+                        <button
+                            type="reset"
+                            class="btn btn-label-secondary"
+                            data-bs-dismiss="offcanvas"
+                        >
+                            Annuler
+                        </button>
+                    </form>
+                    
+                    </div>
+                </div>
+                <!-- / Content -->
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

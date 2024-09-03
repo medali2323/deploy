@@ -1,0 +1,32 @@
+.link {
+    cursor: pointer;
+    padding: 10px;
+     transition: ease-in 200ms;
+   display:flex;
+   gap:8px;
+   width:100%;
+   justify-content: space-between; 
+  }
+  .no-underline {
+    text-decoration: none; /* Supprime le soulignement */
+  }
+  footer {
+    color: white;
+}
+section{
+  margin-bottom: 150px;
+}
+
+body {
+  margin-top: 0; /* Assurez-vous qu'il n'y a pas de marge en haut du corps */
+  padding-top: 60px; /* Ajustez la marge supérieure pour compenser la hauteur de la barre de navigation et de l'espace */
+}
+nav{
+ box-shadow: 4px 5px 8px rgb(0 0 0 / 9%);
+}
+.navbar-super-container{
+  position: -webkit-sticky;
+  position: sticky; 
+  top: 0;
+  z-index: 9999; 
+}

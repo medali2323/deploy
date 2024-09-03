@@ -1,0 +1,181 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+<app-sidebar></app-sidebar>
+       
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+<app-navbar></app-navbar>   
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+       
+            <!-- / Content -->
+  <!-- Content -->
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+    <!-- Users List Table -->
+    <div class="card" style="padding: 10px">
+                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+            <div style=" float: right;text-align: right">
+              
+            </div>
+
+            <div class="card-datatable table-responsive">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                    class="datatables-users table border-top"
+                    id="table"
+                >
+                                              <thead>
+                                                <tr>
+                                                  <th style="width: 50px"></th>
+                                                  <th style="text-align:center">Code</th>
+                                                  <th style="text-align:center">Date</th>
+                                                  <th style="text-align:center">Prix unitaire HT</th>
+                                                  <th style="text-align:center">Prix unitaire TTC</th>
+                                                  <th style="text-align:center">Taux TVA</th>
+                                                  <th style="text-align:center">Paiement</th>
+                                                  <th style="text-align:center">Vente soldé?</th>
+                                                  <th style="text-align:center">Dernier</th>
+                                                  <th style="text-align:center">Date début</th>
+                                                  <th style="text-align:center">Date fin</th>
+                                                  <th style="text-align:center">Type d'abonnement</th>
+                                                  <th style="text-align:center;"></th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr *ngFor="let abonnement of Vente_abonnement">
+                                                  <td style="text-align:center">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/People_icon_half.svg/1024px-People_icon_half.svg.png" alt="" style="width:30px;">
+                                                </td>
+                                                  <td>{{ abonnement.code }}</td>
+                                                  <td>{{ abonnement.dateVente | date }}</td>
+                                                  <td>{{ abonnement.montantHt }}</td>
+                                                  <td>{{ abonnement.montantTtc }}</td>
+                                                  <td>{{ abonnement.tauxTva }}</td>
+                                                  <td>{{ abonnement.paiement }}</td>
+                                                  <td>   <span [class]="'badge bg-label-' + (abonnement.solder ? 'success' : 'danger')">
+                                                    {{ abonnement.solder ? 'Oui' : 'Non' }}
+                                                </span></td>                                           
+                                                         <td> 
+                                                   <span [class]="'badge bg-label-' + (abonnement.dernierVente ? 'success' : 'danger')">
+                                                     {{ abonnement.dernierVente ? 'Oui' : 'Non' }}
+                                                    </span></td>
+                                                  <td>{{ abonnement.datedeb | date }}</td>
+                                                  <td>{{ abonnement.datefiin | date }}</td>
+                                                  <td>{{ abonnement.typeAbonnement.description }}</td>
+                                                  <td>
+                                                    <a  class="btn btn-sm btn-icon" (click)="call_delete_modal(abonnement.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                      <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                  </a>
+                                                  </td>
+
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                            
+                                            
+                                              <br />
+                                
+                                     
+                                        </div>
+                                        
+                                
+                  </div>
+              </div>
+
+
+          
+
+              <form   #f=ngForm (ngSubmit)="delete()" class="add-new-user pt-0">
+                <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+       <div class="modal-dialog" role="document" >
+       <div class="modal-content text-center">
+       <div class="modal-body p-0">
+         <div class="onboarding-media">
+             <div class="mx-2">
+                 <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+             </div>
+         </div>
+         <div class="onboarding-content mb-0">
+             <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+       
+       
+       
+       
+       
+       
+             <div class="row">
+                 <div class="col-sm-6">
+                     <div class="mb-3">
+       
+                         <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                     </div>
+                 </div>
+       
+             </div>
+             <div class="row">
+                 <div class="modal-footer border-0">
+                     <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                     <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+       
+                 </div>
+             </div>
+       
+       
+         </div>
+       </div>
+       
+       </div>
+       </div>
+            </div>
+       
+         </form>
+
+
+
+    
+
+  <!-- / Content -->
+            <!-- Footer -->
+          <app-footer></app-footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    
+
+ 
+  

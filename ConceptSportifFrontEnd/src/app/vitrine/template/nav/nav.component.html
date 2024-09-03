@@ -1,0 +1,107 @@
+<div class="container navbar-super-container" style="padding-top: 15px;">
+    <nav>
+      <div class="container" style="padding-left:unset ;padding-right:unset ;">
+        <div class="navbar navbar-expand-lg landing-navbar px-3 px-md-4 bg-white bg-md-transparent">
+          <!-- Menu logo wrapper: Start -->
+          <div class="navbar-brand app-brand demo d-flex py-0 me-4">
+            <!-- Mobile menu toggle: Start-->
+            <button
+              class="navbar-toggler border-0 px-0 me-2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="tf-icons fa fa-bars bx-sm align-middle"></i>
+            </button>
+            <!-- Mobile menu toggle: End-->
+            <span class="app-brand-logo demo" style="width: 150px">
+              <img
+                src="https://expertdev-solutions.com/zen_gym_site/images/logo.png"
+                style="width: 90%"
+              />
+            </span>
+          </div>
+          <!-- Menu logo wrapper: End -->
+          <!-- Menu wrapper: Start -->
+          <div
+            class="collapse navbar-collapse landing-nav-menu"
+            id="navbarSupportedContent"
+          >
+            <ul class="navbar-nav mx-auto">
+              <li
+                class="nav-item active position-relative cursor-pointer"
+                *ngFor="let item of items; let i = index"
+              >
+              <a class="nav-link fw-medium" [routerLink]="item.href" (mouseenter)="toggleSection(i)">
+                  {{ item.header }}
+  
+                  <div [class.rotated]="item.rotated"></div>
+                </a>
+                <div
+                  class="row gy-4 position-absolute top-100"
+                  style="width: 65vw; left: -300px"
+                  [@expandCollapse]="item.expanded ? 'expanded' : 'collapsed'"
+                  [ngClass]="{ expanded: item.expanded }"
+                >
+                  <div class="col-12 col-lg" style="background-color: #f5f5f9">
+                    <ul class="nav flex-column">
+                      <li
+                        class="nav-item"
+                        *ngFor="let link of item.content; let j = index"
+                      >
+                        <a
+                          [routerLink]="link.href"
+                          class="nav-link mega-dropdown-link"
+                        >
+                        <i class="fa fa-certificate me-2 fa-xs" style="color: black"></i>
+                        <span style="color: black"> {{ link.name }} </span></a
+                        >
+                      </li>
+                   
+                    </ul>
+                    <div *ngIf="item.content.length > 0"
+                      class="bg-body nav-img-col p-2"
+                      [ngStyle]="{
+                         'margin-left': item.header === 'Formation des instructeurs' ? '600px' : '600px',
+                         'margin-top': item.header === 'Formation des instructeurs' ? '-50px' : '-150px'
+                      }">
+                     <img src="https://radicalfitnesseurope.eu/wp-content/uploads/2020/05/16-copy.jpg"
+                          alt="nav item col image"
+                          style="width: 300px;" />
+                 </div>
+                 
+                    
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="landing-menu-overlay d-lg-none"></div>
+          <!-- Menu wrapper: End -->
+          <!-- Toolbar: Start -->
+          <ul class="navbar-nav flex-row align-items-center ms-auto">
+            <!-- Style Switcher -->
+  
+            <!-- / Style Switcher-->
+  
+            <!-- navbar button: Start -->
+  
+            <a
+            [routerLink]="'/auth/login'"
+            class="d-flex btn"
+              style="background-color: #5a91b6"
+            >
+              <span class="tf-icons fa fa-user me-md-1 text-light"></span>
+              <span class="d-none d-md-block text-light">Se connecter</span>
+            </a>
+  
+            <!-- navbar button: End -->
+          </ul>
+          <!-- Toolbar: End -->
+        </div>
+      </div>
+    </nav>
+  </div>

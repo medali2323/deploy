@@ -1,0 +1,15 @@
+.custom-link {
+    display: block; /* Pour que le lien occupe toute la largeur */
+    background-color: lightgray;
+    width: 100%;
+    margin-bottom: 5px;
+    text-align: center; /* Pour centrer le contenu du lien */
+    text-decoration: none; /* Pour supprimer le soulignement du lien */
+  }
+  .custom-link img {
+    width: 20px;
+    display: inline-block; /* Permet un alignement vertical précis */
+    vertical-align: middle; /* Alignement vertical avec le texte */
+    margin-right: 5px; /* Espacement entre l'image et le texte */
+  }
+  

@@ -1,0 +1,249 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+      <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+    
+        <!-- Users List Table -->
+  
+                                                            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+                <div
+                    class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4"
+                >
+                    <div class="card" style="padding:10px">
+                        <div class="row row-bordered g-0">
+                            <div class="col-md-10">
+  
+                                <div
+  
+                                    class="px-2"
+                                >
+                                    <div class="card-datatable table-responsive">
+                                        <div class="container">
+                                          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                          class="datatables-users table border-top"
+                                          id="table"
+                                  
+                                          >
+                                            <thead>
+                                              <tr>
+                                                  <th style="width: 50px"></th>
+                                                  <th style="text-align:center">Code</th>
+                                                  <th style="text-align:center">categorie produits</th>
+  
+                                                  <th style="text-align:center;width: 90px"></th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr *ngFor="let categorie_produits of Categorie_Produit">
+                                                  <td >
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/10148/10148474.png" alt="" style="width:30px;">
+                                                  </td>
+                                            <td style="text-align: center;">{{ categorie_produits.code }}</td>
+                                              <td style="text-align: center;">{{ categorie_produits.libcateg }}</td>
+                                                <!-- Ajoutez d'autres cellules de données selon vos besoins -->
+                                                <td style="text-align:center">
+  
+  
+                                                  <a  class="btn btn-sm btn-icon" (click)="openEdit(contentEDIT, categorie_produits)">
+                                                      <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                  </a>
+  
+                                                  <a class="btn btn-sm btn-icon" (click)="call_delete_modal(categorie_produits.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                      <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                  </a>
+  
+                                              </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                              
+                                                <br />
+                                  
+                                       
+                                          </div>
+                                          
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="padding: 10px;display: grid;">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        Ajouter une categorie produit
+                                    </div>
+                                </div>
+                                <div>
+                                  <form #f="ngForm" (ngSubmit)="ajouterCategorie_Produit(f)" class="row g-3">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="desc">categorie produits</label>
+                                        <input type="text" class="form-control" id="desc" placeholder="categorie_produits" name="libcateg" [(ngModel)]="nouveauCategorie_Produit.libcateg" required #libcateg="ngModel" />
+                                        <div class="alert alert-danger" *ngIf="libcateg.invalid && libcateg.touched">
+                                            <div *ngIf="libcateg.errors?.['required']">Le nom du Categorie_Produit est requis</div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary me-sm-3 me-1" [disabled]="f.invalid">Valider</button>
+                                </form>
+                                
+                                </div>
+                                <div
+                                    class="text-center fw-medium pt-3 mb-2"
+                                >
+                                    {{nb}} categorie de produits
+                                </div>
+  
+  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+  
+  
+                <ng-template #contentEDIT let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Modifier categorie produits</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form #f=ngForm (ngSubmit)="modifierCategorie_Produit()">
+                       
+                      
+                          <div class="form-group">
+                            <label>libcateg</label>
+                            <div class="input-group mb-md">
+                              <input type="text" class="form-control" name="libcateg" id="id_libcateg" placeholder="libcateg" [(ngModel)]="editdata.libcateg" required #libcateg="ngModel">
+                              <span class="input-group-addon" id="divlibcateg"></span>
+                            </div>
+                          </div>
+                          <div class="alert alert-danger" *ngIf="libcateg.invalid && libcateg.touched">
+                            <div *ngIf="libcateg.errors?.['required']">le libellé  est requis</div>
+                          </div>
+                      
+                          
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1" [disabled]="f.invalid">Edit</button>
+                          </div>
+                    </form>
+                      
+                    </div>
+                   
+                  </ng-template>
+  
+  
+  
+  
+  
+    </div>
+    <form (ngSubmit)="deleteCategProduit()" class="add-new-user pt-0">
+                        <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+  <div class="modal-dialog" role="document" >
+  <div class="modal-content text-center">
+  <div class="modal-body p-0">
+    <div class="onboarding-media">
+        <div class="mx-2">
+            <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+        </div>
+    </div>
+    <div class="onboarding-content mb-0">
+        <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+  
+  
+  
+  
+  
+  
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-3">
+  
+                    <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                </div>
+            </div>
+  
+        </div>
+        <div class="row">
+            <div class="modal-footer border-0">
+                <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+  
+            </div>
+        </div>
+  
+  
+    </div>
+  </div>
+  
+  </div>
+  </div>
+  </div>
+  
+    </form>
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

@@ -1,0 +1,565 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>
+   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+     <!-- Content -->
+     <div class="container-xxl flex-grow-1 container-p-y">
+        <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+        <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+        <div class="row">
+                                                            <!-- User Sidebar -->
+            <div
+                class="col-xl-12 col-lg-5 col-md-5 order-1 order-md-0"
+            >
+                <!-- User Card -->
+
+                <div class="card mb-12">
+                    <div class="card-body">
+
+                        <div class="info-container">
+                            <form #f="ngForm" id="add_vente_form" (ngSubmit)="ajouternouvelleBon(f)" class="row g-3">
+                                <h5 class="pb-2 border-bottom mb-4">
+                                    Ajouter une vente
+                                </h5>
+                                <div class="col-12 col-md-4">
+                                    <label
+                                        class="form-label"
+                                        for="date"
+                                    >Date</label
+                                    >
+                                    <input
+                                    type="date"
+                                    id="datebe"
+                                    name="datebe"
+                                    class="form-control"
+                                    [(ngModel)]="datebe"
+                                    />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label" for="instructeur_id">Instructeurs</label>
+                                    <select id="instructeur_id" name="instructeur_id" class="select2 form-select" required [(ngModel)]="nouvelleBon.instructeur_id" #instructeurId="ngModel">
+                                      <option value="null" disabled selected>Sélectionnez un instructeur</option>
+                                      <option *ngFor="let instructeur of Instructor" [value]="instructeur.id">{{ instructeur.nom }} {{ instructeur.prenom }}</option>
+                                    </select>
+                                    <div *ngIf="instructeurId.invalid && (instructeurId.dirty || instructeurId.touched)" class="text-danger">
+                                      L'instructeur est requis.
+                                    </div>
+                                  </div>
+                                <div class="col-12 col-md-4">
+                                    <label
+                                        class="form-label"
+                                        for="date"
+                                    >Catégorie</label
+                                    >
+                                    <select id="categorie_Produit_id" name="categorie_Produit_id" class="select2 form-select" required [(ngModel)]="nouvelleBon.categorie_Produit_id" #categorie_ProduitId="ngModel" (change)="getall_Produit_by_categorie(nouvelleBon.categorie_Produit_id)">
+                                        <option value="null" disabled selected>Sélectionnez un categorie_Produit</option>
+                                        <option *ngFor="let categorie_Produit of Categorie_Produits" [value]="categorie_Produit.id">{{ categorie_Produit.libcateg }} </option>
+                                      </select>
+                                      <div *ngIf="categorie_ProduitId.invalid && (categorie_ProduitId.dirty || categorie_ProduitId.touched)" class="text-danger">
+                                        Le categorie_Produit est requis.
+                                      </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label
+                                        class="form-label"
+                                        for="date"
+                                    >Produits</label
+                                    >
+                                    <select id="IDPROD" name="IDPROD" class="select2 form-select" [(ngModel)]="selectedProductId" (change)="remplir_partie_detail()">
+                                        <option value="null" disabled selected>Sélectionnez un produit</option>
+                                        <option *ngFor="let produit of produits" [value]="produit.id">{{ produit.desprod }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-8">
+
+                                    <div class="card-datatable table-responsive">
+                                        <table
+                                            class="datatables-users table border-top"
+                                            style="white-space: nowrap;"
+                                        >
+                                            <tr>
+
+                                                <td style="text-align:center;width:150px">
+                                                    Code
+                                                    <br>
+                                                    <input type="text" id="code_prod_input" name="code_prod_input" [(ngModel)]="code_prod_input" class="form-control"  readonly/>
+                                                </td>
+                                                <td style="text-align:center;">
+                                                    Description
+                                                    <br>
+                                                    <input type="text" id="desc_prod_input" name="desc_prod_input" [(ngModel)]="desc_prod_input" class="form-control" readonly/>
+                                                </td>
+                                                <td style="text-align:center;width:150px">
+                                                    Quantité
+                                                    <br>
+                                                    <input type="number" id="qte_prod_input" name="qte_prod_input"[(ngModel)]="qte_prod_input" class="form-control" />
+                                                </td>
+                                                <td style="text-align:center;width:150px">
+                                                    Prix unitaire TTC
+                                                    <br>
+                                                    <input type="text" id="pu_prod_input" name="pu_prod_input" class="form-control" [(ngModel)]="prixventeht" value="0"/>
+                                                    <input type="hidden" id="id_prod_input" name="id_prod_input" class="form-control"/>
+                                                    <input type="hidden" id="prix_vente_ht_input" name="prix_vente_ht_input" class="form-control"/>
+                                                    <input type="hidden" id="taux_tva_input" name="taux_tva_input" class="form-control"/>
+                                                </td>
+
+                                                <td style="text-align:center;padding-top:30px;">
+                                                    <button type="button" class="btn btn-success" (click)="add_ligne_table_prod()">+</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+                                <div style="text-align: right">
+                                    <button type="button" class="btn btn-danger" style="width: 25%;" (click)="removeRow()">Supprimer</button>
+                                </div>
+                                <div class="card-datatable table-responsive">
+                                    <table
+                                        class="datatables-users table border-top"
+                                        id="table_prod"
+                                        style="white-space: nowrap;"
+                                    >
+                                        <thead>
+                                        <tr>
+                                            <th style="text-align:center"></th>
+                                            <th style="text-align:center">Code</th>
+                                            <th style="text-align:center">Description</th>
+                                            <th style="text-align:center;width: 150px;">Quantité</th>
+                                            <th style="text-align:center;width: 150px;">Prix unitaire HT</th>
+                                            <th style="text-align:center;width: 150px;">Remise</th>
+                                            <th style="text-align:center;width: 150px;">Prix unitaire net HT</th>
+                                            <th style="text-align:center;width: 150px;">Total net HT</th>
+                                            <th style="text-align:center;width: 150px;">Taux TVA</th>
+                                            <th style="text-align:center;width: 150px;">Total TTC</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of tab; let i = index;">
+                                                <td style="text-align:center">
+                                                    <input type="checkbox" [(ngModel)]="item.checked" name="itemChecked" />
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <input type="text" [(ngModel)]="item.code" name="codeInput{{item.id}}" class="form-control" readonly/>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{item.desc}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <input type="number" [(ngModel)]="item.qte" name="qteInput{{item.id}}" class="form-control" readonly/>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <input type="number" [(ngModel)]="item.prix" name="prixInput{{item.id}}" class="form-control" readonly/>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <input type="number" [(ngModel)]="item.remise" name="remiseInput{{item.id}}" class="form-control" />
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <input type="number" [(ngModel)]="item.prix" name="prixInput{{item.id}}" class="form-control" readonly/>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <input type="text" [(ngModel)]="item.prixnet" name="totalNetInput{{item.id}}" class="form-control" readonly/>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <input type="text" [(ngModel)]="item.tva" name="tauxTVAInput{{item.id}}" class="form-control" readonly/>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <input type="text" [(ngModel)]="item.prixttc" name="totalTTCInput{{item.id}}" class="form-control" readonly/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label
+                                        class="form-label"
+                                        for="total_net_ht"
+                                    >Total net HT</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="total_net_ht_final"
+                                        value="0"
+                                        name="total_net_ht_final"
+                                        aria-label="Total net HT"
+                                        [(ngModel)]="tot"
+                                        readonly
+                                    />
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label
+                                        class="form-label"
+                                        for="tot_ttc"
+                                    >Total TTC</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="tot_ttc_final"
+                                        value="0"
+                                        name="tot_ttc_final"
+                                        aria-label="Total TTC"
+                                        [(ngModel)]="totttc"
+
+                                        readonly
+                                    />
+                                </div>
+                                <input
+                                    type="hidden"
+                                    id="qte_list"
+                                    name="qte_list"
+                                    class="form-control"
+                                />
+                                <input
+                                    type="hidden"
+                                    id="pu_vente_list"
+                                    name="pu_vente_list"
+                                    class="form-control"
+                                />
+                                <input
+                                    type="hidden"
+                                    id="pu_net_ht_vente_list"
+                                    name="pu_net_ht_vente_list"
+                                    class="form-control"
+                                />
+                                <input
+                                    type="hidden"
+                                    id="remise_list"
+                                    name="remise_list"
+                                    class="form-control"
+                                />
+                                <input
+                                    type="hidden"
+                                    id="prod_id_list"
+                                    name="prod_id_list"
+                                    class="form-control"
+                                />
+                                <div class="d-flex justify-content-center pt-3">
+
+                                    <button type="submit" class="btn btn-primary" id="submitButton" >Valider</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /User Card -->
+
+
+            </div>
+            <!--/ User Sidebar -->
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasAddUser"
+        aria-labelledby="offcanvasAddUserLabel"
+    >
+        <div class="offcanvas-header">
+            <h5
+                id="offcanvasAddUserLabel"
+                class="offcanvas-title"
+            >
+                Ajouter un fournisseur
+
+            </h5>
+            <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+            ></button>
+        </div>
+        <div
+            class="offcanvas-body mx-0 flex-grow-0"
+        >
+
+            <form method="POST" enctype="multipart/form-data" action="https://expertdev-solutions.com/zen_gym_site/admin/ajout_fournisseur" class="row g-3">
+                <input type="hidden" name="_token" value="H2IsrShr9ZuUm04fipVtOM3ytw8j7u99a9vG2xrJ">
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="photo"
+                    >Photo</label
+                    >
+                    <input
+                        type="file"
+                        class="form-control"
+                        id="photo"
+                        placeholder="Photo"
+                        name="photo"
+                        aria-label="Photo"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="nom"
+                    >Nom</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="nom"
+                        placeholder="Nom"
+                        name="nom"
+                        aria-label="Nom"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="prenom"
+                    >Prénom</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="prenom"
+                        placeholder="Prénom"
+                        name="prenom"
+                        aria-label="Prénom"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="mail"
+                    >Email</label
+                    >
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="mail"
+                        placeholder="Email"
+                        name="mail"
+                        aria-label="Email"
+                        required
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="adresse"
+                    >Adresse</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="adresse"
+                        placeholder="Adresse"
+                        name="adresse"
+                        aria-label="Adresse"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="tel"
+                    >Téléphone</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="tel"
+                        placeholder="Téléphone"
+                        name="tel"
+                        aria-label="Téléphone"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="date_naiss"
+                    >Date de naissance</label
+                    >
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="date_naiss"
+                        value="2024-04-15"
+                        name="date_naiss"
+                        aria-label="Date de naissance"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="sexe"
+                    >genre</label
+                    >
+                    <div class="col-md">
+                        <div class="form-check form-check-inline mt-3">
+                            <input class="form-check-input" type="radio" name="sexe" id="inlineRadio1" value="H" checked/>
+                            <label class="form-check-label" for="inlineRadio1">Homme</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sexe" id="inlineRadio2" value="F" />
+                            <label class="form-check-label" for="inlineRadio2">Femme</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="profession"
+                    >Profession</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="profession"
+                        placeholder="Profession"
+                        name="profession"
+                        aria-label="Profession"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="cin"
+                    >CIN</label
+                    >
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="cin"
+                        placeholder="CIN"
+                        name="cin"
+                        aria-label="CIN"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="pays_id">Pays</label>
+                    <select id="pays_id" name="pays_id" class="select2 form-select" required>
+                        <option value="null">Pays</option>
+                                                                <option value="1">Afghanistan</option>
+
+
+                                                        </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="categ_fournisseur_id">Catégories des fournisseurs</label>
+                    <select id="categ_fournisseur_id" name="categ_fournisseur_id" class="select2 form-select" required>
+                        <option value="null">Catégories des fournisseurs</option>
+                                                                <option value="1">XX</option>
+
+                                                        </select>
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="email"
+                    >Nom d&#039;utilisateur</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="email"
+                        placeholder="Nom d&#039;utilisateur"
+                        name="email"
+                        aria-label="Nom d&#039;utilisateur"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="password"
+                    >Mot de passe</label
+                    >
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="*****"
+                        name="password"
+                        aria-label="Mot de passe"
+
+                    />
+                </div>
+                <input
+                    type="hidden"
+                    class="form-control"
+                    id="verif_nature"
+                    value="vente_abo"
+                    name="verif_nature"
+
+                />
+                <button
+                    type="submit"
+                    class="btn btn-primary me-sm-3 me-1 data-submit"
+
+                >
+                    Valider
+                </button>
+                <button
+                    type="reset"
+                    class="btn btn-label-secondary"
+                    data-bs-dismiss="offcanvas"
+                >
+                    Annuler
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

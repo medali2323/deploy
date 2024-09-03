@@ -1,0 +1,328 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+      <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+    
+        <!-- Users List Table -->
+  
+                                                            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+                <div
+                    class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4"
+                >
+                    <div class="card" style="padding:10px">
+                        <div class="row row-bordered g-0">
+                            <div class="col-md-10">
+  
+                                <div
+  
+                                    class="px-2"
+                                >
+                                    <div class="card-datatable table-responsive">
+                                        <div class="container">
+                                          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                          class="datatables-users table border-top"
+                                          id="table"
+                                  
+                                          >
+                                            <thead>
+                                              <tr>
+                                                <th style="width: 50px"></th>
+                                                            <th style="text-align:center">RAISON SOCIALE</th>
+                                                            <th style="text-align:center">Contacte</th>
+                                                            <th style="text-align:center">Téléphone 1</th>
+                                                            <th style="text-align:center">Téléphone 2</th>
+                                                            <th style="text-align:center">Matricule fiscale</th>
+                                                            <th style="text-align:center">Registre de commerce</th>
+  
+                                                  <th style="text-align:center;width: 90px"></th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr *ngFor="let fournisseur of fournisseur">
+                                                <td style="text-align:center">
+                                                  <img src="https://cdn-icons-png.flaticon.com/512/4830/4830734.png" alt="" style="width:30px;">
+                                                  </td>
+                                                  <td style="text-align:center;">{{ fournisseur.raisonSociale }}</td>
+                                                  <td style="text-align:center;">{{ fournisseur.contacte }}</td>
+                                                  <td style="text-align:center;">{{ fournisseur.telephone1 }}</td>
+                                                  <td style="text-align:center;">{{ fournisseur.telephone2 }}</td>
+                                                  <td style="text-align:center;">{{ fournisseur.matriculeFiscale }}</td>
+                                                  <td style="text-align:center;">{{ fournisseur.registreCommerce }}</td>
+                                        
+                                        
+                                        
+                                                <td style="text-align:center">
+  
+  
+                                                  <a  class="btn btn-sm btn-icon" (click)="openEdit(contentEDIT, fournisseur)">
+                                                      <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                  </a>
+  
+                                                  <a class="btn btn-sm btn-icon" (click)="call_delete_modal(fournisseur.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                      <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                  </a>
+  
+                                              </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                              
+                                                <br />
+                                  
+                                       
+                                          </div>
+                                          
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="padding: 10px;display: grid;">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        Ajouter un fournisseur
+                                    </div>
+                                </div>
+                                <div>
+                                    <form #fournisseurForm="ngForm" (ngSubmit)="ajouterfournisseur(fournisseurForm)" class="row g-3">
+                                        <div class="mb-3">
+                                          <label class="form-label" for="raisonSociale">Raison Sociale</label>
+                                          <input type="text" class="form-control" id="raisonSociale" placeholder="Raison Sociale" name="raisonSociale" ngModel required
+                                            #raisonSociale="ngModel" />
+                                          <div class="alert alert-danger" *ngIf="raisonSociale.invalid && raisonSociale.touched">
+                                            <div *ngIf="raisonSociale.errors?.['required']">La raison sociale est requise</div>
+                                          </div>
+                                        </div>
+                                      
+                                        <div class="mb-3">
+                                          <label class="form-label" for="contacte">Contact</label>
+                                          <input type="text" class="form-control" id="contacte" placeholder="Contact" name="contacte" ngModel required
+                                            #contacte="ngModel" />
+                                          <div class="alert alert-danger" *ngIf="contacte.invalid && contacte.touched">
+                                            <div *ngIf="contacte.errors?.['required']">Le contact est requis</div>
+                                          </div>
+                                        </div>
+                                      
+                                        <div class="mb-3">
+                                          <label class="form-label" for="telephone">Téléphone</label>
+                                          <input type="tel" class="form-control" id="telephone" placeholder="Téléphone" name="telephone1" ngModel required
+                                            #telephone1="ngModel" />
+                                          <div class="alert alert-danger" *ngIf="telephone1.invalid && telephone1.touched">
+                                            <div *ngIf="telephone1.errors?.['required']">Le téléphone 1 est requis</div>
+                                          </div>
+                                        </div>
+                                      
+                                        <div class="mb-3">
+                                          <label class="form-label" for="telephone2">Téléphone 2</label>
+                                          <input type="tel" class="form-control" id="telephone2" placeholder="Téléphone 2" name="telephone2" ngModel #telephone2="ngModel" />
+                                        </div>
+                                      
+                                        <div class="mb-3">
+                                          <label class="form-label" for="matriculeFiscale">Matricule Fiscale</label>
+                                          <input type="text" class="form-control" id="matriculeFiscale" placeholder="Matricule Fiscale" name="matriculeFiscale" ngModel required
+                                            #matriculeFiscale="ngModel" />
+                                          <div class="alert alert-danger" *ngIf="matriculeFiscale.invalid && matriculeFiscale.touched">
+                                            <div *ngIf="matriculeFiscale.errors?.['required']">Le matricule fiscale est requis</div>
+                                          </div>
+                                        </div>
+                                      
+                                        <div class="mb-3">
+                                          <label class="form-label" for="registreCommerce">Registre de Commerce</label>
+                                          <input type="text" class="form-control" id="registreCommerce" placeholder="Registre de Commerce" name="registreCommerce" ngModel required
+                                            #registreCommerce="ngModel" />
+                                          <div class="alert alert-danger" *ngIf="registreCommerce.invalid && registreCommerce.touched">
+                                            <div *ngIf="registreCommerce.errors?.['required']">Le registre de commerce est requis</div>
+                                          </div>
+                                        </div>
+                                      
+                                        <button type="submit" class="btn btn-primary me-sm-3 me-1" [disabled]="fournisseurForm.invalid">Valider</button>
+                                      </form>
+                                      
+                                  
+                                </div>
+                                <div
+                                    class="text-center fw-medium pt-3 mb-2"
+                                >
+                                    {{nb}} fournisseur
+                                </div>
+  
+  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+  
+  
+                <ng-template #contentEDIT let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Modifier fournisseur</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="card mb-12">
+                    <div class="card-body">
+                        <div class="user-avatar-section">
+                            <div
+                                class="d-flex align-items-center flex-column"
+                            >
+                                <img
+                                    class="img-fluid rounded my-4"
+                                    src="https://cdn-icons-png.flaticon.com/512/4830/4830734.png"
+                                    height="110"
+                                    width="110"
+                                    alt="User avatar"
+                                />
+                                <div
+                                    class="user-info text-center"
+                                >
+                                    <h4 class="mb-2">
+                                        {{editdata.code}} -
+                                        {{editdata.description}}
+                                    </h4>
+                                    <span
+                                        class="badge bg-label-secondary"
+                                    >fournisseur</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+  
+                        <h5 class="pb-2 border-bottom mb-4">
+                            Détails
+                        </h5>
+                        <div class="info-container">
+                            <form #f=ngForm (ngSubmit)="updatefournisseur()" class="row g-3">
+                                <div class="col-12 col-md-12">
+                                    <label
+                                        class="form-label"
+                                        for="desc"
+                                    >fournisseur</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="desc"
+                                        name="desc"
+                                        class="form-control"
+                                        [value]="editdata.description"
+                                        [(ngModel)]="editdata.description" required #description="ngModel"/>
+                                    
+                                </div>
+  
+                                <div class="d-flex justify-content-center pt-3">
+  
+                                    <button type="submit" class="btn btn-primary" id="submitButton">Modifier</button>
+                                </div>
+                            </form>
+  
+                        </div>
+                    </div>
+                </div>
+                   
+                  </ng-template>
+  
+  
+  
+  
+  
+    </div>
+    <form #f="ngForm" (ngSubmit)="deletefournisseur()">
+      <div *ngIf="showConfirmationModal" class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content text-center">
+                  <div class="modal-body p-0">
+                      <div class="onboarding-media">
+                          <div class="mx-2">
+                              <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                          </div>
+                      </div>
+                      <div class="onboarding-content mb-0">
+                          <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+                          <div class="row">
+                              <div class="col-sm-6">
+                                  <div class="mb-3">
+                                      <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id" [(ngModel)]="fullName">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="modal-footer border-0">
+                                  <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                                  <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" (click)="cancel()">Non</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </form>
+  
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+    
+  
+   
+    

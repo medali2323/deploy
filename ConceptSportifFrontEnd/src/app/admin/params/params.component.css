@@ -1,0 +1,16 @@
+.mat-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .mat-card-item {
+    flex: 0 1 calc(33.33% - 20px); /* Largeur de chaque carte, ajustable selon le nombre de cartes par ligne */
+    max-width: calc(33.33% - 20px);
+  }
+  
+  .custom-card {
+    width: 30px; 
+    height: 30px; /* Ajoutez 'px' pour spécifier l'unité de mesure */
+  }
+  

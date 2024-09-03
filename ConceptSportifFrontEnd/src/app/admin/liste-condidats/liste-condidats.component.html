@@ -1,0 +1,356 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+  
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+                
+                    <!-- nouveauCondidats List Table -->
+                    <div class="card" style="padding: 10px">
+                                                                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+
+
+                            <div style=" float: right;text-align: right">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary me-sm-3 me-1 data-submit"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddnouveauCondidat"
+                                >
+                                    Ajouter un Condidat
+                                </button>
+                            </div>
+
+                            <div class="card-datatable table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                    class="datatables-nouveauCondidats table border-top"
+                                    id="table"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px"></th>
+                                            <th style="text-align:center">Nom</th>
+                                            <th style="text-align:center">Prénom</th>
+                                            <th style="text-align:center">Téléphone 1</th>
+                                            <th style="text-align:center">Téléphone 2</th>
+                                            <th style="text-align:center">Email</th>
+                                            <th style="text-align:center">Adresse</th>
+                                            <th style="text-align:center">Code postale</th>
+                                            <th style="text-align:center">Montant d'affiliation</th>
+                                            <th style="text-align:center">Catégorie</th>
+                                            <th style="text-align:center">Salle de sport</th>
+                                            <th style="text-align:center">Instructeurs</th>
+            
+                                            <th style="text-align:center;width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr  *ngFor="let Condidat of Condidats">
+
+                                                <td style="text-align:center">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3410/3410150.png" alt="" style="width:30px;">
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Condidat.nom}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                     {{Condidat.prenom}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Condidat.tel}}
+
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Condidat.tel2}}
+
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Condidat.email}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Condidat.adresse}}
+  
+                                                </td>
+                                              
+
+                                                <td style="text-align:center">
+                                                     {{Condidat.code_postal}}
+                                                </td>
+                                                
+                                                <td style="text-align:center">
+                                                    {{Condidat.mt_affiliation}}
+                                               </td>
+                                                <td style="text-align:center">
+                                                    {{Condidat.categCondidat.descriptionarcond}}
+
+                                                </td>
+
+                                                <td style="text-align:center">
+                                                    {{Condidat.salle_de_sport ? '{{Condidat.salle_de_sport.nomsalle}}' : 'Aucun salle '}}
+                                                     
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Condidat.instructor ? ' {{Condidat.instructor.nom}}  {{Condidat.instructor.prenom}}' : 'Aucun instructeur '}}
+
+                                                   
+                                               </td>
+                                                <td style="text-align:center">
+
+
+                                                    <a (click)="edit(Condidat.id)" class="btn btn-sm btn-icon">
+                                                        <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                    <a  class="btn btn-sm btn-icon" (click)="call_delete_modal(Condidat.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                                                                                                </tbody>
+                                </table>
+                            </div>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <form (ngSubmit)="delete()" class="add-new-nouveauCondidat pt-0">
+ <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content text-center">
+            <div class="modal-body p-0">
+                <div class="onboarding-media">
+                    <div class="mx-2">
+                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                    </div>
+                </div>
+                <div class="onboarding-content mb-0">
+                    <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+
+                                <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+                </form>
+
+
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-1"
+                    id="offcanvasAddnouveauCondidat"
+                    aria-labelledby="offcanvasAddnouveauCondidatLabel"
+                >
+                    <div class="offcanvas-header">
+                        <h5
+                            id="offcanvasAddnouveauCondidatLabel"
+                            class="offcanvas-title"
+                        >
+                            Ajouter un Condidat
+
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close text-reset"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div
+                        class="offcanvas-body mx-0 flex-grow-0"
+                    >
+
+                    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)" enctype="multipart/form-data" class="row g-3">
+                        <div class="mb-3">
+                            <label class="form-label" for="cat_condidat">Catégorie des Condidats</label>
+                            <select name="cat_condidat" class="form-select" ngModel required #cat_condidat="ngModel">
+                                <option value="null" [disabled]="true">Sélectionner une catégorie</option>
+                                <option *ngFor="let cat of categ_Condidats" [value]="cat.id">{{ cat.descriptionarcond }}</option>
+
+                            </select>
+                            <div class="text-danger" *ngIf="cat_condidat.invalid && (cat_condidat.dirty || cat_condidat.touched)">
+                                <div *ngIf="cat_condidat.errors?.['required']">La catégorie est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="nom">Nom</label>
+                            <input type="text" name="nom" class="form-control" ngModel required pattern="[a-zA-Z0-9]+" #nom="ngModel">
+                            <div class="text-danger" *ngIf="nom.invalid && (nom.dirty || nom.touched)">
+                                <div *ngIf="nom.errors?.['required']">Le nom est requis.</div>
+                                <div *ngIf="nom.errors?.['pattern']">Le nom ne doit contenir que des lettres et des chiffres.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="prenom">Prénom</label>
+                            <input type="text" name="prenom" class="form-control" ngModel required #prenom="ngModel">
+                            <div class="text-danger" *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)">
+                                <div *ngIf="prenom.errors?.['required']">Le prénom est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="adresse">Adresse</label>
+                            <input type="text" name="adresse" class="form-control" ngModel required #adresse="ngModel">
+                            <div class="text-danger" *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)">
+                                <div *ngIf="adresse.errors?.['required']">L'adresse est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tel">Téléphone 1</label>
+                            <input type="text" name="tel" class="form-control" ngModel required #tel="ngModel">
+                            <div class="text-danger" *ngIf="tel.invalid && (tel.dirty || tel.touched)">
+                                <div *ngIf="tel.errors?.['required']">Le Téléphone 1 est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tel2">Téléphone 2</label>
+                            <input type="text" name="tel2" class="form-control" ngModel required #tel2="ngModel">
+                            <div class="text-danger" *ngIf="tel2.invalid && (tel2.dirty || tel2.touched)">
+                                <div *ngIf="tel2.errors?.['required']">Le Téléphone 2 est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" name="email" class="form-control" ngModel required email #mail="ngModel">
+                            <div class="text-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+                                <div *ngIf="mail.errors?.['required']">L'email est requis.</div>
+                                <div *ngIf="mail.errors?.['email']">L'email doit être une adresse email valide.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Mot de passe</label>
+                            <input type="password" name="password" class="form-control" ngModel required #password="ngModel">
+                            <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+                                <div *ngIf="password.errors?.['required']">Le mot de passe est requis.</div>
+                            </div>
+                        </div>
+                        
+                     
+                        <div class="mb-3">
+                            <label class="form-label" for="code_postal">Code postale</label>
+                            <input type="text" name="code_postal" class="form-control" ngModel required #code_postal="ngModel">
+                            <div class="text-danger" *ngIf="code_postal.invalid && (code_postal.dirty || code_postal.touched)">
+                                <div *ngIf="code_postal.errors?.['required']">Le Code postale est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="mt_affiliation">montant d'affiliation</label>
+                            <input type="number" name="mt_affiliation" class="form-control" ngModel required #mt_affiliation="ngModel">
+                            <div class="text-danger" *ngIf="mt_affiliation.invalid && (mt_affiliation.dirty || mt_affiliation.touched)">
+                                <div *ngIf="mt_affiliation.errors?.['required']">Le mt_affiliation est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="salle_id">salle de sport</label>
+                            <select name="salle_id" class="form-select" ngModel  #salle_id="ngModel">
+                                <option value="null" [disabled]="true">Sélectionner une salle de sport</option>
+                                <option *ngFor="let s of sps" [value]="s.id">{{s.nomsalle}}</option>
+                            </select>
+                            <div class="text-danger" *ngIf="salle_id.invalid && (salle_id.dirty || salle_id.touched)">
+                                <div *ngIf="salle_id.errors?.['required']">La salle de sport est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="instructor_id"> instructeurs</label>
+                            <select name="instructor_id" class="form-select" ngModel  #instructor_id="ngModel">
+                                <option value="null" [disabled]="true">Sélectionner une instructeurs</option>
+                                <option *ngFor="let i of Instructeur" [value]="i.id">{{ i.nom }} {{ i.prenom }}</option>
+
+                            </select>
+                           
+                        </div>
+                   
+                        <!-- Ajoutez d'autres champs requis pour les instructeurs ici -->
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="submitButton" [disabled]="userForm.invalid" data-bs-dismiss="offcanvas">Valider</button>
+                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Annuler</button>
+                    </form>
+                    
+                    
+                    </div>
+                </div>
+                <!-- / Content -->
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

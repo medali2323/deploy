@@ -1,0 +1,39 @@
+  <!-- Navbar: End -->
+  
+  <!-- Sections:Start -->
+  <!-- Help Center Header: Start -->
+  
+  <!-- Help Center Header: End -->
+  <!-- Help Center Header: End -->
+  <section class="section-py first-section-pt" style="margin-top: 100px;">
+    <div class="container">
+      <div class="event-schedule-area-two bg-color pad100" style="height: 1000px;width: 800px;margin-left: 40px;">
+  
+        <div class="card" *ngFor="let i of formationalademande">
+
+          <div class="image">
+             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Gfp-missouri-st-louis-clubhouse-pond-and-scenery.jpg/1199px-Gfp-missouri-st-louis-clubhouse-pond-and-scenery.jpg">
+          </div>
+          <div class="title">
+           <h1>
+          {{i.description}}</h1>
+          </div>
+          <div class="des">
+              <p>Instructeur : {{i.instructor.nom}}  {{i.instructor.prenom}}</p>
+              <p>duree : {{i.duree}} </p>
+              <p>frais : {{i.frais}} dt </p>
+      
+               
+          </div>
+          </div>
+      
+      </div>
+    </div>
+  </section>
+  <!-- Popular Articles: Start -->
+  
+  <!-- Contact Us: End -->
+  
+  <!-- Footer: Start -->
+  <!-- Footer: End -->
+  

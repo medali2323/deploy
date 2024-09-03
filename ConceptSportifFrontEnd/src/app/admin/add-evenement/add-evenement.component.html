@@ -1,0 +1,663 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>
+   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+     <!-- Content -->
+     <div class="container-xxl flex-grow-1 container-p-y">
+        <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+        <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+        <div class="row">
+                                                            <!-- User Sidebar -->
+            <div
+                class="col-xl-12 col-lg-5 col-md-5 order-1 order-md-0"
+            >
+                <!-- User Card -->
+
+                <div class="card mb-12">
+                    <div class="card-body">
+
+                        <div class="info-container">
+                            <form #f="ngForm" id="add_vente_form" (ngSubmit)="ajouternouvelleevent(f)" class="row g-3">
+                              
+                                <h5 class="pb-2 border-bottom mb-4">
+                                    Ajouter un événement
+                                </h5>
+                                <div class="col-12 col-md-4">
+                                    <label
+                                        class="form-label"
+                                        for="desc"
+                                    >Description</label
+                                    >
+                                    <input type="text" class="form-control" id="description" name="description" aria-label="Description" [(ngModel)]="nouvelleevent.description" required #description="ngModel">
+                                    <div class="text-danger" *ngIf="description.invalid && (description.dirty || description.touched)">
+                                        <div *ngIf="description.errors?.['required']">La description est requise.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label
+                                        class="form-label"
+                                        for="type_evenement"
+                                    >Catégorie événement</label
+                                    >
+                                    <select id="typeEvenement_id" name="typeEvenement_id" class="select2 form-select" required [(ngModel)]="nouvelleevent.typeEvenement_id" #typeEvenementId="ngModel"(change)="changeCateg($event)">
+                                        <option value="null" disabled selected>Sélectionnez une catégorie Evenement</option>
+                                        <option *ngFor="let typeEvenement of Type_evenements" [value]="typeEvenement.id">{{ typeEvenement.description }} </option>
+                                      </select>
+                                      <div *ngIf="typeEvenementId.invalid && (typeEvenementId.dirty || typeEvenementId.touched)" class="text-danger">
+                                        La catégorie Evenement est requis.
+                                      </div>
+                                </div>
+                                <div class="mb-3" *ngIf="ispresentiel">
+                                    <label class="form-label" for="emplacement">emplacement</label>
+                                    <input type="text" name="emplacement" class="form-control" ngModel required #emplacement="ngModel">
+                                    <div class="text-danger" *ngIf="emplacement.invalid && (emplacement.dirty || emplacement.touched)">
+                                        <div *ngIf="emplacement.errors?.['required']">L'emplacement est requise.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label
+                                        class="form-label"
+                                        for="nbr_place_dispo"
+                                    >capacite</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="nbr_place_dispo"
+                                        name="nbr_place_dispo"
+                                        aria-label="capacite"
+
+                                        
+                                        [(ngModel)]="nouvelleevent.capacite" required #capacite="ngModel"
+                                        (change)="changecapacite()"
+                                        />
+                                        <div class="text-danger" *ngIf="capacite.invalid && (capacite.dirty || capacite.touched)"> <!-- Updated validation condition -->
+                                            <div *ngIf="capacite.errors?.['required']">La capacite est requise.</div> <!-- Updated validation message -->
+                                        </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        class="form-label"
+                                        for="date_deb"
+                                    >Date début</label
+                                    >
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        id="date_deb"
+                                        name="datedeb"
+                                        aria-label="Date début"
+                                        [(ngModel)]="nouvelleevent.datedeb" required #datedeb="ngModel"
+                                        />
+                                        <div class="text-danger" *ngIf="datedeb.invalid && (datedeb.dirty || datedeb.touched)"> <!-- Updated validation condition -->
+                                            <div *ngIf="datedeb.errors?.['required']">La date debut est requise.</div> <!-- Updated validation message -->
+                                        </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        class="form-label"
+                                        for="datefin"
+                                    >Date fin</label
+                                    >
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        id="date_fin"
+                                        name="datefin"
+                                        aria-label="Date fin"
+                                        [(ngModel)]="nouvelleevent.datefin" required #datefin="ngModel"
+                                        />
+                                        <div class="text-danger" *ngIf="datefin.invalid && (datefin.dirty || datefin.touched)"> <!-- Updated validation condition -->
+                                            <div *ngIf="datefin.errors?.['required']">La date fin est requise.</div> <!-- Updated validation message -->
+                                        </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        class="form-label"
+                                        for="heure_deb"
+                                    >Heure début</label
+                                    >
+                                    <input
+                                        type="time"
+                                        class="form-control"
+                                        id="heure_deb"
+                                        name="heuredebu"
+                                        aria-label="Heure début"
+                                        [(ngModel)]="nouvelleevent.heuredebu" required #heuredebu="ngModel"
+                                        />
+                                        <div class="text-danger" *ngIf="heuredebu.invalid && (heuredebu.dirty || heuredebu.touched)"> <!-- Updated validation condition -->
+                                            <div *ngIf="heuredebu.errors?.['required']">L'heure de debut est requise.</div> <!-- Updated validation message -->
+                                        </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        class="form-label"
+                                        for="heure_fin"
+                                    >Heure fin</label
+                                    >
+                                    <input
+                                        type="time"
+                                        class="form-control"
+                                        id="heure_fin"
+                                        name="heurefin"
+                                        aria-label="Heure fin"
+                                        [(ngModel)]="nouvelleevent.heurefin" required #heurefin="ngModel"
+                                        />
+                                        <div class="text-danger" *ngIf="heurefin.invalid && (heurefin.dirty || heurefin.touched)"> <!-- Updated validation condition -->
+                                            <div *ngIf="heurefin.errors?.['required']">L'heure de fin est requise.</div> <!-- Updated validation message -->
+                                        </div>
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    <label
+                                        class="form-label"
+                                        for="heure_fin"
+                                    > Ajouter des Instructeurs </label
+                                    >
+                                    <div class="card-datatable table-responsive">
+                                        <table
+                                            class="datatables-users table border-top"
+                                            id="table"
+                                        >
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 50px"></th>
+                                                <th style="text-align:center">Nom</th>
+                                                <th style="text-align:center">Prénom</th>
+                                                <th style="text-align:center">Email</th>
+                                                <th style="text-align:center">Adresse</th>
+                                                <th style="text-align:center">Téléphone</th>
+                                                <th style="text-align:center">Profession</th>
+                                                <th style="text-align:center">Catégorie</th>
+                                                <th style="text-align:center">CIN</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                                                                                                                                      
+
+                                       <tr  *ngFor="let i of Instructor">
+
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                    <img src="https://cdn-icons-png.flaticon.com/512/3410/3410150.png" alt="" style="width:30px;">
+                                                                                                                                                                                </td>
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                    {{i.nom}}
+                                                                                                                                                                                </td>
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                     {{i.prenom}}
+                                                                                                                                                                                </td>
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                    {{i.email}}
+                                                                                                                                                                                </td>
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                    {{i.adresse}}
+                                                                                                                                  
+                                                                                                                                                                                </td>
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                    {{i.tel}}
+                                                                                                                                
+                                                                                                                                                                                </td>
+                                                                                                                                
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                     {{i.profession}}
+                                                                                                                                                                                </td>
+                                                                                                                                                                                
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                    {{i.profession}}
+                                                                                                                                                                               </td>
+                                                                                                                                                                                <td style="text-align:center">
+                                                                                                                                                                                    {{i.cin}}
+                                                                                                                                
+                                                                                                                                                                                </td>
+                                                                                                                                                                                <td style="text-align:center;padding-top:30px">
+                                                                                                                                                                                    <button type="button" class="btn btn-success" (click)="add_ligne_table_ins(i)">Valider</button>
+                                                                                                                                                                                </td>
+
+                                      </tr>
+                                                                                                                                                                </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div style="text-align: right">
+                                    <button type="button" class="btn btn-danger" style="width: 25%;" (click)="removeRow()">Supprimer</button>
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    <label
+                                        class="form-label"
+                                        for="heure_fin"
+                                    >Instructeurs</label
+                                    >
+                                    <div class="card-datatable table-responsive">
+                                        <table
+                                            class="datatables-users table border-top"
+                                            id="table"
+                                        >
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 50px"></th>
+                                                <th style="text-align:center">Nom</th>
+                                                <th style="text-align:center">Prénom</th>
+                                                <th style="text-align:center">Email</th>
+                                                <th style="text-align:center">Adresse</th>
+                                                <th style="text-align:center">Téléphone</th>
+                                                <th style="text-align:center">Profession</th>
+                                                <th style="text-align:center">Catégorie</th>
+                                                <th style="text-align:center">CIN</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                                                                                                                                      
+
+                                       <tr  *ngFor="let i of tab">
+
+
+                                        <td style="text-align:center">
+                                            <input type="checkbox" [(ngModel)]="i.checked" name="itemChecked" />
+                                        </td>
+                                                  <td style="text-align:center">
+                                                    {{i.nom}}
+                                                 </td>
+                                
+                                                 <td style="text-align:center">
+                                                    {{i.prenom}}
+                                               </td>
+                                               <td style="text-align:center">
+                                                   {{i.email}}
+                                               </td>
+                                               <td style="text-align:center">
+                                                   {{i.adresse}}
+ 
+                                               </td>
+                                               <td style="text-align:center">
+                                                   {{i.tel}}
+
+                                               </td>
+
+                                               <td style="text-align:center">
+                                                    {{i.profession}}
+                                               </td>
+                                               
+                                               <td style="text-align:center">
+                                                   {{i.profession}}
+                                              </td>
+                                               <td style="text-align:center">
+                                                   {{i.cin}}
+
+                                               </td>
+                                            </tr>
+
+                                         </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        class="form-label"
+                                        for="nbr_participant"
+                                    >Nombre de participants</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="nbr_participant"
+                                        name="nbr_participant"
+                                        aria-label="Nombre de participants"
+                                        readonly
+                                        [(ngModel)]="nouvelleevent.nbr_participant" required #nbr_participant="ngModel"
+                                        />
+                                        <div class="text-danger" *ngIf="nbr_participant.invalid && (nbr_participant.dirty || nbr_participant.touched)"> <!-- Updated validation condition -->
+                                            <div *ngIf="nbr_participant.errors?.['required']">Le nbr_participant  est requise.</div> <!-- Updated validation message -->
+                                        </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        class="form-label"
+                                        for="nbr_place_restant"
+                                    >Nombre de places restants</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="nbr_place_restant"
+                                        [(ngModel)]="nbpr"
+                                        name="nbr_place_restant"
+                                        aria-label="Nombre de places restants"
+                                        readonly
+                                    />
+                                </div>
+                                <input
+                                    type="hidden"
+                                    class="form-control"
+                                    id="instr_id_list"
+                                    value="0"
+                                    name="instr_id_list"
+
+                                />
+                                <div class="d-flex justify-content-center pt-3">
+                                    <button type="submit" class="btn btn-primary" id="submitButton" [disabled]="f.invalid">Valider</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /User Card -->
+
+
+            </div>
+            <!--/ User Sidebar -->
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasAddUser"
+        aria-labelledby="offcanvasAddUserLabel"
+    >
+        <div class="offcanvas-header">
+            <h5
+                id="offcanvasAddUserLabel"
+                class="offcanvas-title"
+            >
+                Ajouter un fournisseur
+
+            </h5>
+            <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+            ></button>
+        </div>
+        <div
+            class="offcanvas-body mx-0 flex-grow-0"
+        >
+
+            <form method="POST" enctype="multipart/form-data" action="https://expertdev-solutions.com/zen_gym_site/i/ajout_fournisseur" class="row g-3">
+                <input type="hidden" name="_token" value="H2IsrShr9ZuUm04fipVtOM3ytw8j7u99a9vG2xrJ">
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="photo"
+                    >Photo</label
+                    >
+                    <input
+                        type="file"
+                        class="form-control"
+                        id="photo"
+                        placeholder="Photo"
+                        name="photo"
+                        aria-label="Photo"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="nom"
+                    >Nom</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="nom"
+                        placeholder="Nom"
+                        name="nom"
+                        aria-label="Nom"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="prenom"
+                    >Prénom</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="prenom"
+                        placeholder="Prénom"
+                        name="prenom"
+                        aria-label="Prénom"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="mail"
+                    >Email</label
+                    >
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="mail"
+                        placeholder="Email"
+                        name="mail"
+                        aria-label="Email"
+                        required
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="adresse"
+                    >Adresse</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="adresse"
+                        placeholder="Adresse"
+                        name="adresse"
+                        aria-label="Adresse"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="tel"
+                    >Téléphone</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="tel"
+                        placeholder="Téléphone"
+                        name="tel"
+                        aria-label="Téléphone"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="date_naiss"
+                    >Date de naissance</label
+                    >
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="date_naiss"
+                        value="2024-04-15"
+                        name="date_naiss"
+                        aria-label="Date de naissance"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="sexe"
+                    >genre</label
+                    >
+                    <div class="col-md">
+                        <div class="form-check form-check-inline mt-3">
+                            <input class="form-check-input" type="radio" name="sexe" id="inlineRadio1" value="H" checked/>
+                            <label class="form-check-label" for="inlineRadio1">Homme</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="sexe" id="inlineRadio2" value="F" />
+                            <label class="form-check-label" for="inlineRadio2">Femme</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="profession"
+                    >Profession</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="profession"
+                        placeholder="Profession"
+                        name="profession"
+                        aria-label="Profession"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="cin"
+                    >CIN</label
+                    >
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="cin"
+                        placeholder="CIN"
+                        name="cin"
+                        aria-label="CIN"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="pays_id">Pays</label>
+                    <select id="pays_id" name="pays_id" class="select2 form-select" required>
+                        <option value="null">Pays</option>
+                                                                <option value="1">Afghanistan</option>
+
+
+                                                        </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="categ_fournisseur_id">Catégories des fournisseurs</label>
+                    <select id="categ_fournisseur_id" name="categ_fournisseur_id" class="select2 form-select" required>
+                        <option value="null">Catégories des fournisseurs</option>
+                                                                <option value="1">XX</option>
+
+                                                        </select>
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="email"
+                    >Nom d&#039;utilisateur</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="email"
+                        placeholder="Nom d&#039;utilisateur"
+                        name="email"
+                        aria-label="Nom d&#039;utilisateur"
+
+                    />
+                </div>
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="password"
+                    >Mot de passe</label
+                    >
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="*****"
+                        name="password"
+                        aria-label="Mot de passe"
+
+                    />
+                </div>
+                <input
+                    type="hidden"
+                    class="form-control"
+                    id="verif_nature"
+                    value="vente_abo"
+                    name="verif_nature"
+
+                />
+                <button
+                    type="submit"
+                    class="btn btn-primary me-sm-3 me-1 data-submit"
+
+                >
+                    Valider
+                </button>
+                <button
+                    type="reset"
+                    class="btn btn-label-secondary"
+                    data-bs-dismiss="offcanvas"
+                >
+                    Annuler
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

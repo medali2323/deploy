@@ -1,0 +1,84 @@
+/* Ajoutez ce CSS dans le fichier de styles de votre composant */
+.course-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.course-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.course-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.course-date-time {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-day {
+  font-weight: bold;
+}
+
+.course-time {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.course-details {
+  margin-top: 10px;
+}
+
+.course-type {
+  font-style: italic;
+}
+
+.course-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.instructor {
+  font-size: 0.9em;
+  color: #888;
+}
+
+.rating {
+  font-size: 0.9em;
+  color: #ffa000;
+}
+
+.course-reserve {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.price {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.reserve-button {
+  background-color: #5a91b6;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.reserve-button:hover {
+  background-color: #4a7b94;
+}

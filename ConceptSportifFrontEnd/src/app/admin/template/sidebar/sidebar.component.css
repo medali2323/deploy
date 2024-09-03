@@ -1,0 +1,48 @@
+.accordion {
+    width: 100%;
+  }
+  
+  .accordion-header:hover {
+    background-color: rgba(67, 89, 113, 0.04);
+  }
+  
+  .accordion-header {
+    cursor: pointer;
+    padding: 10px;
+     transition: ease-in 200ms;
+   display:flex;
+   gap:8px;
+   width:100%;
+   justify-content: space-between; 
+  }
+  
+  .accordion-content {
+    display: none;
+  }
+  
+  .accordion-content.expanded {
+    display: block;
+  }
+  
+  .rotated {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+  }
+  
+  .link:hover {
+    background-color: rgba(67, 89, 113, 0.04);
+  }
+  
+  .link {
+    cursor: pointer;
+    padding: 10px;
+     transition: ease-in 200ms;
+   display:flex;
+   gap:8px;
+   width:100%;
+   justify-content: space-between; 
+  }
+  .no-underline {
+    text-decoration: none; /* Supprime le soulignement */
+  }
+  

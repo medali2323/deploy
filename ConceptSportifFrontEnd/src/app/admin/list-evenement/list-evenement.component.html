@@ -1,0 +1,231 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+  
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+            
+                    <!-- nouveauEvenements List Table -->
+                    <div class="card" style="padding: 10px">
+                                                                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+
+
+                            <div class="card-datatable table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                    class="datatables-nouveauEvenements table border-top"
+                                    id="table"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center">Code</th>
+                                            <th style="text-align:center">Description</th>
+                                            <th style="text-align:center">Catégorie</th>
+                                            <th style="text-align:center">Enplacement</th>
+
+                                            <th style="text-align:center">Événement réalisée</th>
+                                            <th style="text-align:center">Date début</th>
+                                            <th style="text-align:center">Heure début</th>
+                                            <th style="text-align:center">Date fin</th>
+                                            <th style="text-align:center">Heure fin</th>
+                                            <th style="text-align:center">Nombre de places disponibles</th>
+                                            <th style="text-align:center">Nombre de participants</th>
+                                            <th style="text-align:center">Nombre de places restants</th>
+
+                                            <th style="text-align:center;width: 90px"></th>
+                                            <th style="text-align:center;width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr  *ngFor="let Evenement of Evenements">
+
+                                           
+                                                <td style="text-align:center">
+                                                    {{Evenement.code}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                     {{Evenement.description}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Evenement.typeEvenement.description}}
+
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <span *ngIf="Evenement.linkMeet">
+                                                        <a href="{{Evenement.linkMeet}}">lien d'evenment en ligne</a>
+                                                    </span>
+                                                    <span *ngIf="Evenement.emplacement">
+                                                        {{Evenement.emplacement}}
+                                                    </span>
+                                               </td>
+                                                <td style="text-align:center">
+                                                    <span [class]="'badge bg-label-' + (Evenement.fait ? 'success' : 'danger')">
+                                                        {{ Evenement.fait ? 'Oui' : 'Non' }}
+                                                    </span>                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Evenement.dateDebut | date:'dd/MM/yyyy'}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Evenement.dateFin | date:'dd/MM/yyyy'}}
+  
+                                                </td>
+                                              
+
+                                                <td style="text-align:center">
+                                                     {{Evenement.heureDebut}}
+                                                </td>
+                                                
+                                                <td style="text-align:center">
+                                                    {{Evenement.heureFin}}
+                                               </td>
+                                                <td style="text-align:center">
+                                                    {{Evenement.nbrPlaceDispo}}
+
+                                                </td>
+
+                                                <td style="text-align:center">
+                                                     {{Evenement.nbrParticipant}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Evenement.nbrPlaceRestant}} 
+                                               </td>
+
+                                                <td style="text-align:center">
+
+
+                                                    <a *ngIf="!Evenement.fait" class="btn btn-sm btn-icon custom-link" (click)="approuve(Evenement)">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="">
+                                                        réalisée
+                                                      </a>
+
+                                                    
+
+                                                </td>
+                                                <td style="text-align:center" >
+
+
+                                                    <a *ngIf="!Evenement.fait" (click)="edit(Evenement.id)" class="btn btn-sm btn-icon">
+                                                        <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                    <a *ngIf="!Evenement.fait" class="btn btn-sm btn-icon" (click)="call_delete_modal(Evenement.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                                                                                                </tbody>
+                                </table>
+                            </div>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <form (ngSubmit)="delete()" class="add-new-nouveauEvenement pt-0">
+ <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content text-center">
+            <div class="modal-body p-0">
+                <div class="onboarding-media">
+                    <div class="mx-2">
+                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                    </div>
+                </div>
+                <div class="onboarding-content mb-0">
+                    <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+
+                                <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+                </form>
+
+
+             
+                <!-- / Content -->
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

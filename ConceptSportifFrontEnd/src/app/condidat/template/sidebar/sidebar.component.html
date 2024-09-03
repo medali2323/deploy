@@ -1,0 +1,44 @@
+  <!-- Menu -->
+
+  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+      <a routerLink="../dashboard" class="app-brand-link">
+        <span class="app-brand-logo demo">
+          <span class="app-brand-logo demo">
+                        <img src="https://expertdev-solutions.com/zen_gym_site/images/logo.png" style="width:40%;"> style="width:40%;">
+          </span>
+        </span>
+        <span class="app-brand-text demo menu-text fw-bold ms-2">Sneat</span>
+      </a>
+
+      <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+      </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+<div class="accordion">
+  <ul class="menu-item">
+  <li class="menu-item active open" *ngFor="let item of items; let i = index">
+    <a class="menu-link" (click)="toggleSection(i)">
+      <div class="text-truncate">
+        <i class='{{item.icon}}'></i>
+        {{ item.header }}
+      </div>
+      <div [class.rotated]="item.rotated"></div>
+    </a>
+    <ul class="menu-sub" [@expandCollapse]="item.expanded ? 'expanded' : 'collapsed'" [ngClass]="{'expanded': item.expanded}">
+      <li class="menu-item" *ngFor="let link of item.content; let j = index">
+        <a [routerLink]="link.href" class="menu-link no-underline">{{ link.name }}</a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+  
+    </div>
+    
+
+    
+  </aside>
+  <!-- / Menu -->

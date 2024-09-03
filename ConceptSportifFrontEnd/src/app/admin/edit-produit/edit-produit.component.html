@@ -1,0 +1,307 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+            <div class="row">
+                                                                <!-- User Sidebar -->
+                <div
+                    class="col-xl-12 col-lg-5 col-md-5 order-1 order-md-0"
+                >
+                    <!-- User Card -->
+
+                    <div class="card mb-12">
+                        <div class="card-body">
+                            <div class="user-avatar-section">
+                                <div
+                                    class="d-flex align-items-center flex-column"
+                                >
+
+                                                                                    <img
+                                            class="img-fluid rounded my-4"
+                                            src="https://cdn-icons-png.flaticon.com/512/4129/4129528.png"
+                                            height="110"
+                                            width="110"
+                                            alt="User avatar"
+                                        />
+                                                                                <div
+                                        class="user-info text-center"
+                                    >
+                                        <h4 class="mb-2">
+                                            {{produit.codeprod}}-
+                                            {{produit.desprod}}
+                                        </h4>
+                                        <span
+                                            class="badge bg-label-secondary"
+                                        >Produits</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="pb-2 border-bottom mb-4">
+                                Détails
+                            </h5>
+                            <div class="info-container">
+                                <form  enctype="multipart/form-data" id="editUserForm" (ngSubmit)="updateproduit()" class="row g-3">
+
+                                    <div class="col-12 col-md-12">
+                                        <label
+                                            class="form-label"
+                                            for="photo"
+                                        >Photo</label
+                                        >
+                                        <input type="file" accept="image/*" (change)="onSelectFile($event)" class="form-control">
+                                        <img [src]="imgURL" height="200" *ngIf="imgURL">
+                                        <input
+                                            type="hidden"
+                                            id="photo_old"
+                                            name="photo_old"
+                                            class="form-control"
+                                            value=""
+                                        />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="form-label" for="categ_produit_id">Catégories des produits</label>
+                                        <select id="categorie_Produit_id" name="categorie_Produit_id" class="select2 form-select" [value]="produit.categorie_Produit.id"   [(ngModel)]="produit.categorie_Produit.id"      #categorie_Produit_id="ngModel">
+                                            <option value="" disabled selected>Choisir une catégorie</option>
+                                            <option *ngFor="let Categorie_Produit of catreps" [ngValue]="Categorie_Produit.id">{{ Categorie_Produit.libcateg }}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="categorie_Produit_id.invalid && (categorie_Produit_id.dirty || categorie_Produit_id.touched)">
+                                            <div *ngIf="categorie_Produit_id.errors?.['required']">La categorie Produi est requise.</div>
+                                        </div>    
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="code"
+                                        >Code</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="code"
+                                            name="code"
+                                            class="form-control"
+                                            [value]="produit.codeprod"   
+                                            aria-label="codeprod"
+                                             [(ngModel)]="produit.codeprod"                                                readonly
+                                        />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="desc"
+                                        >Description</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="desc"
+                                            name="desc"
+                                            class="form-control"
+                                            [value]="produit.desprod"   
+                                            aria-label="desprod"
+                                             [(ngModel)]="produit.desprod"    
+                                             required #description="ngModel">
+                                             <div class="text-danger" *ngIf="description.invalid && (description.dirty || description.touched)">
+                                                 <div *ngIf="description.errors?.['required']">La description est requise.</div>
+                                             </div>                 
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="couleur"
+                                        >Couleur</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="couleur"
+                                            name="couleur"
+                                            class="form-control"
+                                            [value]="produit.couleur"   
+                                            aria-label="couleur"
+                                             [(ngModel)]="produit.couleur"  
+                                             required #couleur="ngModel">
+                                             <div class="text-danger" *ngIf="couleur.invalid && (couleur.dirty || couleur.touched)">
+                                                 <div *ngIf="couleur.errors?.['required']">La couleur est requise.</div>
+                                             </div>                 
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="dosage"
+                                        >Dosage</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="dosage"
+                                            name="dosage"
+                                            class="form-control"
+                                            [value]="produit.dosage"   
+                                          aria-label="Dosage"
+                                           [(ngModel)]="produit.dosage"
+                                           required #dosage="ngModel">
+                                           <div class="text-danger" *ngIf="dosage.invalid && (dosage.dirty || dosage.touched)">
+                                               <div *ngIf="dosage.errors?.['required']">La dosage est requise.</div>
+                                           </div>                 
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="prix_vente_ht"
+                                        >Prix de vente HT</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="prix_vente_ht"
+                                            name="prix_vente_ht"
+                                            class="form-control"
+                                            [value]="produit.prixventeht"   
+                                            aria-label="prixventeht"
+                                             [(ngModel)]="produit.prixventeht"    
+                                             required #prixventeht="ngModel">
+                                             <div class="text-danger" *ngIf="prixventeht.invalid && (prixventeht.dirty || prixventeht.touched)">
+                                                 <div *ngIf="prixventeht.errors?.['required']">La prixventeht est requise.</div>
+                                             </div>                 
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="prix_vente_net_ht"
+                                        >Prix de vente net HT</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="prix_vente_net_ht"
+                                            name="prix_vente_net_ht"
+                                            class="form-control"
+                                            [value]="produit.prixventenetht"   
+                                            aria-label="prixventenetht"
+                                             [(ngModel)]="produit.prixventenetht"  readonly
+                                        />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="prix_vente_ttc"
+                                        >Prix de vente TTC</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="prix_vente_ttc"
+                                            name="prix_vente_ttc"
+                                            class="form-control"
+                                            [value]="produit.prixventettc"   
+                                            aria-label="prixventettc"
+                                             [(ngModel)]="produit.prixventettc"                                                readonly
+                                        />
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="taux_tva"
+                                        >Taux TVA</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="taux_tva"
+                                            name="taux_tva"
+                                            class="form-control"
+                                            [value]="produit.tauxtva"   
+                                            aria-label="tauxtva"
+                                             [(ngModel)]="produit.tauxtva"         
+                                             required #tauxtva="ngModel">
+                                             <div class="text-danger" *ngIf="tauxtva.invalid && (tauxtva.dirty || tauxtva.touched)">
+                                                 <div *ngIf="tauxtva.errors?.['required']">La taux TVA est requise.</div>
+                                             </div>        
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            class="form-label"
+                                            for="max_remise"
+                                        >Max remise %</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="max_remise"
+                                            name="max_remise"
+                                            class="form-control"
+                                            [value]="produit.maxremise"   
+                                            aria-label="maxremise"
+                                             [(ngModel)]="produit.maxremise"            
+                                             required #maxremise="ngModel">
+                                             <div class="text-danger" *ngIf="maxremise.invalid && (maxremise.dirty || maxremise.touched)">
+                                                 <div *ngIf="maxremise.errors?.['required']">La maxremise est requise.</div>
+                                             </div>        
+                                    </div>
+                                    <div class="col-12 col-md-6" style="padding-top: 35px">
+                                        <label class="switch">
+                                            <input type="checkbox" class="switch-input" name="active" [(ngModel)]="produit.active" [checked]="produit.active">
+                                            <span class="switch-toggle-slider">
+                                                <span class="switch-on"></span>
+                                                <span class="switch-off"></span>
+                                            </span>
+                                            <span class="switch-label">Oui</span>
+                                        </label>
+                                        
+                                        
+                                    </div>
+
+
+                                    <div class="d-flex justify-content-center pt-3">
+
+                                        <button type="submit" class="btn btn-primary" id="submitButton">Modifier</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /User Card -->
+
+                </div>
+                <!--/ User Sidebar -->
+
+            </div>
+
+        </div>
+        <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

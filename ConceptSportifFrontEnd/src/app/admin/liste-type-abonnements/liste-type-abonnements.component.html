@@ -1,0 +1,273 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+  
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+                
+                    <!-- Users List Table -->
+                    <div class="card" style="padding: 10px">
+                                                                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+
+
+                            <div style=" float: right;text-align: right">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary me-sm-3 me-1 data-submit"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"
+                                >
+                                    Ajouter un Type
+                                </button>
+                            </div>
+
+                            <div class="card-datatable table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                    class="datatables-users table border-top"
+                                    id="table"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px"></th>
+                                            <th style="text-align:center">Code</th>
+                                            <th style="text-align:center">Types des abonnements</th>
+        
+                                            <th style="text-align:center">Nombre de mois</th>
+                                            <th style="text-align:center">Prix unitaire TTC</th>
+                                            <th style="text-align:center">Taux TVA</th>
+                                            <th style="text-align:center">Prix unitaire HT</th>
+                                            <th style="text-align:center">Catégories des abonnements</th>
+                                            <th style="text-align:center;width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr  *ngFor="let Type_abonnement of Type_abonnement">
+
+                                        <td style="text-align:center">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/People_icon_half.svg/1024px-People_icon_half.svg.png" alt="" style="width:30px;">
+                                        </td>
+                                                <td style="text-align:center">
+                                                    {{Type_abonnement.code}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Type_abonnement.description}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                     {{Type_abonnement.nembre_mois}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Type_abonnement.prix_u_ttc}}
+                                                </td>
+                                             
+
+                                                <td style="text-align:center">
+                                                    {{Type_abonnement.taux_tva}}
+                                               </td>
+                                                 <td style="text-align:center">
+                                                     {{Type_abonnement.prix_u_ht}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{Type_abonnement.categ_abonnement.description}}
+                                               </td>
+                                                <td style="text-align:center">
+
+
+                                                    <a (click)="edit(Type_abonnement.id)" class="btn btn-sm btn-icon">
+                                                        <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                    <a  class="btn btn-sm btn-icon" (click)="call_delete_modal(Type_abonnement.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                                                                                                </tbody>
+                                </table>
+                            </div>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <form (ngSubmit)="delete()" class="add-new-user pt-0">
+ <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content text-center">
+            <div class="modal-body p-0">
+                <div class="onboarding-media">
+                    <div class="mx-2">
+                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                    </div>
+                </div>
+                <div class="onboarding-content mb-0">
+                    <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+
+                                <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+                </form>
+
+
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-1"
+                    id="offcanvasAddUser"
+                    aria-labelledby="offcanvasAddUserLabel"
+                >
+                    <div class="offcanvas-header">
+                        <h5
+                            id="offcanvasAddUserLabel"
+                            class="offcanvas-title"
+                        >
+                            Ajouter un Type
+
+                        </h5>
+                        <button type="button" class="btn-close text-reset" aria-label="Close" (click)="onCloseClick()"></button>
+
+                    </div>
+                    <div
+                        class="offcanvas-body mx-0 flex-grow-0"
+                    >
+                    <form id="addNewUserForm" class="row g-3" (ngSubmit)="ajouterType_abonnement(form)" #form="ngForm" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="cat_inst_id">Catégories des abonnements</label>
+                            <select id="cat_inst_id" name="cat_inst_id" class="select2 form-select" required [(ngModel)]="nouveauType_abonnement.categ_abonnement" #catInstId="ngModel">
+                                <option *ngFor="let categ_abonnement of Categ_abonnement" [value]="categ_abonnement.id">{{ categ_abonnement.description }}</option>
+                            </select>
+                            <div *ngIf="catInstId.invalid && (catInstId.dirty || catInstId.touched)" class="text-danger">
+                                <div *ngIf="catInstId.errors?.['required']">La catégorie des abonnements est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="desc">Types des abonnements</label>
+                            <input type="text" class="form-control" id="desc" placeholder="Types des abonnements" name="description" aria-label="Types des abonnements" [(ngModel)]="nouveauType_abonnement.description" required #description="ngModel">
+                            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+                                <div *ngIf="description.errors?.['required']">Le type des abonnements est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="nb_mois">Nombre de mois</label>
+                            <input type="number" class="form-control" id="nb_mois" placeholder="Nombre de mois" name="nembre_mois" aria-label="Nombre de mois" [(ngModel)]="nouveauType_abonnement.nembre_mois" required #nembre_mois="ngModel">
+                            <div *ngIf="nembre_mois.invalid && (nembre_mois.dirty || nembre_mois.touched)" class="text-danger">
+                                <div *ngIf="nembre_mois.errors?.['required']">Le nombre de mois est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="taux_tva">Taux TVA</label>
+                            <input type="number" class="form-control" id="taux_tva" placeholder="Taux TVA" name="taux_tva" aria-label="Taux TVA" (change)="calcul_prix_net_ht()" [(ngModel)]="nouveauType_abonnement.taux_tva" required #tauxTva="ngModel">
+                            <div *ngIf="tauxTva.invalid && (tauxTva.dirty || tauxTva.touched)" class="text-danger">
+                                <div *ngIf="tauxTva.errors?.['required']">Le taux TVA est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="prix_ht">Prix unitaire HT</label>
+                            <input type="number" class="form-control" id="prix_ht" value="0" name="prix_u_ht" aria-label="Prix unitaire HT" (change)="calcul_prix_net_ht()" [(ngModel)]="nouveauType_abonnement.prix_u_ht" required #prix_u_ht="ngModel">
+                            <div *ngIf="prix_u_ht.invalid && (prix_u_ht.dirty || prix_u_ht.touched)" class="text-danger">
+                                <div *ngIf="prix_u_ht.errors?.['required']">Le prix unitaire HT est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="prix_u_ttc">Prix unitaire TTC</label>
+                            <input type="number" class="form-control" id="prix_u_ttc" value="0" name="prix_u_ttc" aria-label="Prix unitaire TTC" [(ngModel)]="nouveauType_abonnement.prix_u_ttc" required #prix_u_ttc="ngModel" readonly>
+                          
+                        </div>
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="submitButton" [disabled]="form.invalid">Valider</button>
+                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Annuler</button>
+                    </form>
+                    
+                    
+                    
+                    
+                    
+                    
+                      
+                    </div>
+                </div>
+                <!-- / Content -->
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+     
+  
+   
+    

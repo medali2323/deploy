@@ -1,0 +1,59 @@
+<div class="container-fluid ">
+    <div class="row mt-3">
+      <div class="card" *ngFor="let i of formationalademande"  >
+  
+          <div class="image">
+             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Gfp-missouri-st-louis-clubhouse-pond-and-scenery.jpg/1199px-Gfp-missouri-st-louis-clubhouse-pond-and-scenery.jpg">
+          </div>
+          <div class="title">
+           <h1>
+          {{i.description}}</h1>
+          </div>
+          <div class="des">
+              <p >Instructeur : {{i.instructor.nom}}  {{i.instructor.prenom}}</p>
+              <p>frais : {{i.fraisFormation}} dt </p>
+      
+              <div *ngIf="i.liigneformation !== null">
+                                      
+                  <!-- Display buttons if approuve is false and paye is false -->
+                  <div *ngIf="!i.liigneformation.paye">
+                     
+                      <div class="primary-btn">
+                          <a class="btn btn-primary text-light" style="background-color: #5a91b6;" [routerLink]="['../payer/formation', i.id]">Payer</a>
+                      </div>
+                  </div>
+          
+                  <!-- Display 'Payé' if paye is true -->
+                  <div *ngIf="i.liigneformation.paye">
+                      <span>Payé</span>
+                  </div>
+          
+                  <!-- Display 'En cours' if approuve is false and paye is false -->
+                  <div *ngIf="!i.liigneformation.approuve">
+                      <span>En cours</span>
+                  </div>
+          
+                  <!-- Display 'Approuvé' if approuve is true -->
+                  <div *ngIf="i.liigneformation.approuve">
+                      <span>Approuvé</span>
+                  </div>
+                    
+                  <div *ngIf="i.liigneformation?.approuve && i.liigneformation?.paye">
+                      <button class="btn btn-primary text-light" style="background-color: #5a91b6;"  [routerLink]="['../../candidat/detailformation', i.id]" >
+                          <span>Consulter</span>
+                      </button>
+                  </div>
+              </div>
+              <div *ngIf="i.liigneformation==null">
+                  <div class="primary-btn" style="margin-bottom: 10px;">
+                      <a class="btn btn-primary text-light" style="background-color: #5a91b6;padding: 4% !important;" (click)="demande(i)">Demande de participation</a>
+                  </div>
+                  <div class="primary-btn">
+                      <a class="btn btn-primary text-light" style="background-color: #5a91b6;padding: 4% !important;" [routerLink]="['../payer/formation', i.id]">Payer</a>
+                  </div>
+              </div>
+          </div>
+          </div>
+    </div>
+      
+  </div>

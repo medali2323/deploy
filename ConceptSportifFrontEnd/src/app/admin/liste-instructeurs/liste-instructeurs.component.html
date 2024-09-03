@@ -1,0 +1,356 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+              <!-- Content -->
+  
+         
+              <!-- / Content -->
+    <!-- Content -->
+  
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>
+                
+                    <!-- nouveauInstructors List Table -->
+                    <div class="card" style="padding: 10px">
+                                                                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+
+
+                            <div style=" float: right;text-align: right">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary me-sm-3 me-1 data-submit"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddnouveauInstructor"
+                                >
+                                    Ajouter un instructeur
+                                </button>
+                            </div>
+
+                            <div class="card-datatable table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                    class="datatables-nouveauInstructors table border-top"
+                                    id="table"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px"></th>
+                                            <th style="text-align:center">Nom</th>
+                                            <th style="text-align:center">Prénom</th>
+                                            <th style="text-align:center">Email</th>
+                                            <th style="text-align:center">Adresse</th>
+                                            <th style="text-align:center">Téléphone</th>
+                                            <th style="text-align:center">Profession</th>
+                                            <th style="text-align:center">Catégorie</th>
+                                            <th style="text-align:center">CIN</th>
+                                            <th style="text-align:center">Nom d&#039;utilisateur</th>
+            
+                                            <th style="text-align:center;width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr  *ngFor="let admin of Instructors">
+
+                                                <td style="text-align:center">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3410/3410150.png" alt="" style="width:30px;">
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{admin.nom}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                     {{admin.prenom}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{admin.email}}
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{admin.adresse}}
+  
+                                                </td>
+                                                <td style="text-align:center">
+                                                    {{admin.tel}}
+
+                                                </td>
+
+                                                <td style="text-align:center">
+                                                     {{admin.profession}}
+                                                </td>
+                                                
+                                                <td style="text-align:center">
+                                                    {{admin.categInstructeur.description}}
+                                               </td>
+                                                <td style="text-align:center">
+                                                    {{admin.cin}}
+
+                                                </td>
+
+                                                <td style="text-align:center">
+                                                     {{admin.username}}
+                                                </td>
+                                                <td style="text-align:center">
+
+
+                                                    <a (click)="edit(admin.id)" class="btn btn-sm btn-icon">
+                                                        <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                    <a  class="btn btn-sm btn-icon" (click)="call_delete_modal(admin.id)" data-bs-toggle="modal" data-bs-target="#onboardImageModal">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                                                                                                </tbody>
+                                </table>
+                            </div>
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+                <form (ngSubmit)="delete()" class="add-new-nouveauInstructor pt-0">
+ <div class="modal-onboarding modal fade animate__animated" id="onboardImageModal" tabindex="-1" aria-hidden="true" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content text-center">
+            <div class="modal-body p-0">
+                <div class="onboarding-media">
+                    <div class="mx-2">
+                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                    </div>
+                </div>
+                <div class="onboarding-content mb-0">
+                    <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+
+                                <input class="form-control" placeholder="Enter your full name..." type="hidden" value="" tabindex="0" id="champ_id" name="champ_id">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal">Oui</button>
+                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+                </form>
+
+
+                <div
+                    class="offcanvas offcanvas-end"
+                    tabindex="-1"
+                    id="offcanvasAddnouveauInstructor"
+                    aria-labelledby="offcanvasAddnouveauInstructorLabel"
+                >
+                    <div class="offcanvas-header">
+                        <h5
+                            id="offcanvasAddnouveauInstructorLabel"
+                            class="offcanvas-title"
+                        >
+                            Ajouter un instructeur
+
+                        </h5>
+                        <button
+                            type="button"
+                            class="btn-close text-reset"
+                            data-bs-dismiss="offcanvas"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div
+                        class="offcanvas-body mx-0 flex-grow-0"
+                    >
+
+                    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)" enctype="multipart/form-data" class="row g-3">
+                        <div class="mb-3">
+                            <label class="form-label">File Upload</label>
+                            <input type="file" accept="image/*" (change)="onSelectFile($event)">
+                            <img [src]="imgURL" height="200" *ngIf="imgURL">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="nom">Nom</label>
+                            <input type="text" name="nom" class="form-control" ngModel required pattern="[a-zA-Z0-9]+" #nom="ngModel">
+                            <div class="text-danger" *ngIf="nom.invalid && (nom.dirty || nom.touched)">
+                                <div *ngIf="nom.errors?.['required']">Le nom est requis.</div>
+                                <div *ngIf="nom.errors?.['pattern']">Le nom ne doit contenir que des lettres et des chiffres.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="prenom">Prénom</label>
+                            <input type="text" name="prenom" class="form-control" ngModel required #prenom="ngModel">
+                            <div class="text-danger" *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)">
+                                <div *ngIf="prenom.errors?.['required']">Le prénom est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" name="email" class="form-control" ngModel required email #mail="ngModel">
+                            <div class="text-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+                                <div *ngIf="mail.errors?.['required']">L'email est requis.</div>
+                                <div *ngIf="mail.errors?.['email']">L'email doit être une adresse email valide.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="adresse">Adresse</label>
+                            <input type="text" name="adresse" class="form-control" ngModel required #adresse="ngModel">
+                            <div class="text-danger" *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)">
+                                <div *ngIf="adresse.errors?.['required']">L'adresse est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tel">Téléphone</label>
+                            <input type="tel" name="tel" class="form-control" ngModel required #tel="ngModel">
+                            <div class="text-danger" *ngIf="tel.invalid && (tel.dirty || tel.touched)">
+                                <div *ngIf="tel.errors?.['required']">Le téléphone est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="date_naiss">Date de naissance</label>
+                            <input type="date" name="date_naiss" class="form-control" ngModel required #date_naiss="ngModel">
+                            <div class="text-danger" *ngIf="date_naiss.invalid && (date_naiss.dirty || date_naiss.touched)">
+                                <div *ngIf="date_naiss.errors?.['required']">La date de naissance est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Genre</label>
+                            <div class="col-md">
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="sexe" id="inlineRadio1" value="H" checked ngModel>
+                                    <label class="form-check-label" for="inlineRadio1">Homme</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sexe" id="inlineRadio2" value="F" ngModel>
+                                    <label class="form-check-label" for="inlineRadio2">Femme</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="profession">Profession</label>
+                            <input type="text" name="profession" class="form-control" ngModel required #profession="ngModel">
+                            <div class="text-danger" *ngIf="profession.invalid && (profession.dirty || profession.touched)">
+                                <div *ngIf="profession.errors?.['required']">La profession est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="cin">CIN</label>
+                            <input type="number" name="cin" class="form-control" ngModel required #cin="ngModel">
+                            <div class="text-danger" *ngIf="cin.invalid && (cin.dirty || cin.touched)">
+                                <div *ngIf="cin.errors?.['required']">Le CIN est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="pays_id">Pays</label>
+                            <select name="pays_id" class="form-select" ngModel required #pays_id="ngModel">
+                                <option value="null" [disabled]="true">Sélectionner un pays</option>
+                                <option *ngFor="let pays of pays" [value]="pays.id">{{ pays.description }}</option>
+                            </select>
+                            <div class="text-danger" *ngIf="pays_id.invalid && (pays_id.dirty || pays_id.touched)">
+                                <div *ngIf="pays_id.errors?.['required']">Le pays est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="cat_inst_id">Catégorie des instructeurs</label>
+                            <select name="cat_inst_id" class="form-select" ngModel required #cat_inst_id="ngModel">
+                                <option value="null" [disabled]="true">Sélectionner une catégorie</option>
+                                <option *ngFor="let categ_Instructeur of categ_Instructeur" [value]="categ_Instructeur.id">{{ categ_Instructeur.description }}</option>
+
+                            </select>
+                            <div class="text-danger" *ngIf="cat_inst_id.invalid && (cat_inst_id.dirty || cat_inst_id.touched)">
+                                <div *ngIf="cat_inst_id.errors?.['required']">La catégorie est requise.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Nom d'utilisateur</label>
+                            <input type="text" name="username" class="form-control" ngModel required #username="ngModel">
+                            <div class="text-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
+                                <div *ngIf="username.errors?.['required']">Le nom d'utilisateur est requis.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Mot de passe</label>
+                            <input type="password" name="password" class="form-control" ngModel required #password="ngModel">
+                            <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+                                <div *ngIf="password.errors?.['required']">Le mot de passe est requis.</div>
+                            </div>
+                        </div>
+                        <!-- Ajoutez d'autres champs requis pour les instructeurs ici -->
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="submitButton" [disabled]="userForm.invalid"  data-bs-dismiss="offcanvas">Valider</button>
+                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Annuler</button>
+                    </form>
+                    
+                    
+                    </div>
+                </div>
+                <!-- / Content -->
+  
+  
+    <!-- / Content -->
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+      
+  
+   
+    

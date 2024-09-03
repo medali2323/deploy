@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade active show" id="home" role="tabpanel">
+        <div class="table-responsive">
+          <div class="course-table">
+            <div class="course-row" *ngFor="let item of formationPresentiel">
+              <div class="course-info">
+                <div class="course-date-time">
+                  <span class="course-day">Date {{ item.date | date: 'EEEE, dd MMMM yyyy' }}</span>
+                </div>
+                <div class="course-details">
+                  <span class="course-type">Catégorie {{ item.categ_formation.lib }}</span>
+                Cours de  <span class="course-type"> {{ item.sujet }}</span>
+                 presanter par  <span class="instructor">{{ item.instructor.nom }} {{ item.instructor.prenom }}</span>
+                </div>
+              </div>
+              <div class="course-reserve">
+                <span class="price">{{ item.fraisFormation }} DT </span>
+                <div *ngIf="item.liigneformation !== null">
+                                          
+                  <!-- Display buttons if approuve is false and paye is false -->
+                  <div *ngIf="!item.liigneformation.paye">
+                     
+                      <div class="primary-btn">
+                        <a class="btn btn-primary text-light" style="background-color: #5a91b6;" [routerLink]="['../payer/formation', item.id]">Payer</a>
+                      </div>
+                  </div>
+          
+                  <!-- Display 'Payé' if paye is true -->
+                  <div *ngIf="item.liigneformation.paye">
+                      <span>Payé</span>
+                  </div>
+          
+                  <!-- Display 'En cours' if approuve is false and paye is false -->
+                  <div *ngIf="!item.liigneformation.approuve">
+                      <span>En cours</span>
+                  </div>
+          
+                  <!-- Display 'Approuvé' if approuve is true -->
+                  <div *ngIf="item.liigneformation.approuve">
+                      <span>Approuvé</span>
+                  </div>
+                  <div *ngIf="item.liigneformation?.approuve && item.liigneformation?.paye">
+                      <button class="btn btn-primary text-light" style="background-color: #5a91b6;"  [routerLink]="['../../candidat/detailformation', item.id]">
+                          <span>Consulter</span>
+                      </button>
+                  </div>
+              </div>
+              <div *ngIf="item.liigneformation==null">
+                  <div class="primary-btn" style="margin-bottom: 10px;">
+                      <a class="btn btn-primary text-light" style="background-color: #5a91b6;" (click)="demande(item)">Demande de participation</a>
+                  </div>
+                  <div class="primary-btn">
+                    <a class="btn btn-primary text-light" style="background-color: #5a91b6;" [routerLink]="['../payer/formation', item.id]">Payer</a>
+                  </div>
+              </div>                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /col end -->
+</div>

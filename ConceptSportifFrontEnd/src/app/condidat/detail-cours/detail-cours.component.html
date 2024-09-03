@@ -1,0 +1,91 @@
+
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <!-- Menu -->
+  <app-sidebar></app-sidebar>
+         
+          <!-- / Menu -->
+  
+          <!-- Layout container -->
+          <div class="layout-page">
+            <!-- Navbar -->
+  <app-navbar></app-navbar>   
+  
+            <!-- / Navbar -->
+  
+            <!-- Content wrapper -->
+            <div class="content-wrapper" style="padding-bottom: 20px;margin-top: 20px;">
+              <!-- Content -->
+
+              
+              <div class="container" style="padding-top: 40px;">
+                <div class="inner-container" >
+                  <div *ngIf="cours.emplacement" class="course-details">
+                    <h1>Cours de {{ cours.description }}</h1>
+                    <p><strong>Date:</strong> {{ cours.date | date: 'dd/MM/yyyy' }}</p>
+                    <p><strong>Durée:</strong> {{ cours.duree }} minutes</p>
+                    <p><strong>Heure de début:</strong> {{ cours.hdeb }}</p>
+                    <p><strong>Heure de fin:</strong> {{ cours.hfin }}</p>
+                    <p><strong>Catégorie:</strong> {{ cours.categorie_cours.description }}</p>
+                    <p><strong>Emplacement:</strong> {{ cours.emplacement }}</p>
+              
+                    <h2>Instructeur</h2>
+                    <p><strong>Nom:</strong> {{ cours.instructor.nom }} {{ cours.instructor.prenom }}</p>
+                  </div>
+                  <div *ngIf="cours.lienmeet" class="course-details">
+                    <h1>Cours de {{ cours.description }}</h1>
+                    <p><strong>Date:</strong> {{ cours.date | date: 'dd/MM/yyyy' }}</p>
+                    <p><strong>Durée:</strong> {{ cours.duree }} minutes</p>
+                    <p><strong>Heure de début:</strong> {{ cours.hdeb }}</p>
+                    <p><strong>Heure de fin:</strong> {{ cours.hfin }}</p>
+                    <p><strong>Catégorie:</strong> {{ cours.categorie_cours.description }}</p>
+                    <p><strong>Lien de session:</strong> <a [href]="cours.lienmeet">Rejoindre</a></p>
+              
+                    <h2>Instructeur</h2>
+                    <p><strong>Nom:</strong> {{ cours.instructor.nom }} {{ cours.instructor.prenom }}</p>
+                  </div>
+                  <div *ngIf="cours.lienvideo" class="course-details">
+                    <h1>Cours de {{ cours.description }}</h1>
+                    <p><strong>Date:</strong> {{ cours.date | date: 'dd/MM/yyyy' }}</p>
+                    <p><strong>Durée:</strong> {{ cours.duree }} minutes</p>
+                    <p><strong>Heure de début:</strong> {{ cours.hdeb }}</p>
+                    <p><strong>Heure de fin:</strong> {{ cours.hfin }}</p>
+                    <p><strong>Catégorie:</strong> {{ cours.categorie_cours.description }}</p>
+                    <p><strong>Lien de la vidéo:</strong> <a [href]="V1" target="_blank">Rejoindre</a></p>
+                    <video width="320" height="240" controls>
+                      <source src="assets/cours/{{V1}}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                    <h2>Instructeur</h2>
+                    <p><strong>Nom:</strong> {{ cours.instructor.nom }} {{ cours.instructor.prenom }}</p>
+                  </div>
+                </div>
+              </div>
+              <div id="jitsi-iframe" style="width: max-content;height: max-content;"></div>
+
+
+ 
+         
+              <!-- / Content -->
+  
+              <!-- Footer -->
+            <app-footer></app-footer>
+              <!-- / Footer -->
+  
+              <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+          </div>
+          <!-- / Layout page -->
+        </div>
+  
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout wrapper -->
+  
+    
+  
+   
+    

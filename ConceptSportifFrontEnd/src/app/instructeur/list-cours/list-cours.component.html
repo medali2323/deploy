@@ -1,0 +1,214 @@
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+        <app-sidebar></app-sidebar>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+            <app-navbar></app-navbar>
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}</ngb-alert>
+                    <ngb-alert #selfClosingAlert *ngIf="erreurMessage" type="danger" (closed)="erreurMessage = ''">{{ erreurMessage }}</ngb-alert>                    <!-- Cours List Table -->
+                    <div class="card" style="padding: 10px">
+                        <div style="float: right; text-align: right">
+                            <button
+                                type="button"
+                                class="btn btn-primary me-sm-3 me-1 data-submit"
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasAddCours"
+                            >
+                                Ajouter un cours
+                            </button>
+                        </div>
+
+                        <div class="card-datatable table-responsive">
+                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                class="datatables-cours table border-top" id="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px"></th>
+                                        <th style="text-align:center">Code</th>
+                                        <th style="text-align:center">Description</th>
+                                        <th style="text-align:center">Frais</th>
+                                        <th style="text-align:center">Date</th>
+                                        <th style="text-align:center">Heure début</th>
+                                        <th style="text-align:center">Heure fin</th>
+                                        <th style="text-align:center">Durée</th>
+                                        <th style="text-align:center">Approuvé</th>
+                                        <th style="text-align:center">Catégorie</th>
+                                        <th style="text-align:center">emplacement/video</th>
+                                        <th style="text-align:center; width: 90px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let cours of cours">
+                                        <td style="text-align:center">
+                                            <img  src="https://cdn-icons-png.flaticon.com/512/1672/1672286.png" alt="" style="width:30px;">
+                                        </td>
+                                        <td style="text-align:center">{{ cours.code }}</td>
+                                        <td style="text-align:center">{{ cours.description }}</td>
+                                        <td style="text-align:center">{{ cours.frais }}</td>
+                                        <td style="text-align:center">{{ cours.date | date:'yyyy-MM-dd' }}</td>
+                                        <td style="text-align:center">{{ cours.hdeb }}</td>
+                                        <td style="text-align:center">{{ cours.hfin }}</td>
+                                        <td style="text-align:center">{{ cours.duree }}</td>
+                                        <td style="text-align:center">
+                                            {{ cours.approuve ? 'Approuvé' : 'Non Approuvé' }}
+                                          </td>
+                                                                                  <td style="text-align:center">{{ cours.categorie_cours.description }}
+                                                                                </td>
+                                                                                <td *ngIf="cours.emplacement" style="text-align: center;">
+                                                                                    {{ cours.emplacement }}
+                                                                                  </td>
+                                                                                  <td *ngIf="cours.lienvideo" style="text-align: center;">
+                                                                                    <a [href]="'assets/' + cours.lienvideo" target="_blank" style="text-decoration: none;">Ouvrir</a>
+                                                                                </td>
+                                                                                  <td *ngIf="cours.lienmeet" style="text-align: center;">
+                                                                                    <a [href]="cours.lienmeet" target="_blank"style="text-decoration: none;">rejoindre la reunion</a>
+                                                                                  </td>
+                                                                                  
+                                        <td style="text-align:center">
+                                            <a  *ngIf="!cours.approuve" (click)="edit(cours.id)" class="btn btn-sm btn-icon">
+                                                <img src="https://icons.veryicon.com/png/o/miscellaneous/blue-soft-fillet-icon/edit-173.png" alt="" style="width:100%;">
+                                            </a>
+                                            <a class="btn btn-sm btn-icon" (click)="call_delete_modal(cours.id)" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                <img src="https://cdn-icons-png.flaticon.com/512/5496/5496335.png" alt="" style="width:100%;">
+                                            </a>
+                                               <a   class="btn btn-sm btn-icon" (click)="detail(cours.id)" >
+                                                <img src="https://cdn-icons-png.flaticon.com/512/1672/1672286.png" alt="" style="width:100%;">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <form (ngSubmit)="delete()" class="add-new-cours pt-0">
+                    <div class="modal-onboarding modal fade animate__animated" id="deleteModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content text-center">
+                                <div class="modal-body p-0">
+                                    <div class="onboarding-media">
+                                        <div class="mx-2">
+                                            <img src="https://cdn3d.iconscout.com/3d/premium/thumb/man-throwing-trash-9062426-7408544.png?f=webp" style="width:200px">
+                                        </div>
+                                    </div>
+                                    <div class="onboarding-content mb-0">
+                                        <h4 class="onboarding-title text-body">Êtes-vous sûr?</h4>
+                                        <div class="modal-footer border-0">
+                                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Oui</button>
+                                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Non</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddCours" aria-labelledby="offcanvasAddCoursLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasAddCoursLabel" class="offcanvas-title">Ajouter un cours</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body mx-0 flex-grow-0">
+                        <form #coursForm="ngForm" (ngSubmit)="submitForm(coursForm)" enctype="multipart/form-data" class="row g-3">
+                           
+                            <div class="mb-3">
+                                <label class="form-label" for="description">Description</label>
+                                <input type="text" name="description" class="form-control" ngModel required #description="ngModel">
+                                <div class="text-danger" *ngIf="description.invalid && (description.dirty || description.touched)">
+                                    <div *ngIf="description.errors?.['required']">La description est requise.</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="frais">Frais</label>
+                                <input type="number" name="frais" class="form-control" ngModel required #frais="ngModel">
+                                <div class="text-danger" *ngIf="frais.invalid && (frais.dirty || frais.touched)">
+                                    <div *ngIf="frais.errors?.['required']">Les frais sont requis.</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="date">Date</label>
+                                <input type="date" name="date" class="form-control" ngModel required #date="ngModel">
+                                <div class="text-danger" *ngIf="date.invalid && (date.dirty || date.touched)">
+                                    <div *ngIf="date.errors?.['required']">La date est requise.</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="hdeb">Heure début</label>
+                                <input type="time" name="hdeb" class="form-control" ngModel required #hdeb="ngModel">
+                                <div class="text-danger" *ngIf="hdeb.invalid && (hdeb.dirty || hdeb.touched)">
+                                    <div *ngIf="hdeb.errors?.['required']">L'heure de début est requise.</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="hfin">Heure fin</label>
+                                <input type="time" name="hfin" class="form-control" ngModel required #hfin="ngModel">
+                                <div class="text-danger" *ngIf="hfin.invalid && (hfin.dirty || hfin.touched)">
+                                    <div *ngIf="hfin.errors?.['required']">L'heure de fin est requise.</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="duree">Durée</label>
+                                <input type="number" name="duree" class="form-control" ngModel required #duree="ngModel">
+                                <div class="text-danger" *ngIf="duree.invalid && (duree.dirty || duree.touched)">
+                                    <div *ngIf="duree.errors?.['required']">La durée est requise.</div>
+                                </div>
+                            </div>
+                       
+                            <div class="mb-3">
+                                <label class="form-label" for="Categorie_cours">Catégorie</label>
+                                <select name="Categorie_cours" class="form-control" ngModel required #Categorie_cours="ngModel"(change)="changeCateg($event)" >
+                                    <option *ngFor="let categorie of categoriesCours" [value]="categorie.id">{{ categorie.description }}</option>
+                                </select>
+                                <div class="text-danger" *ngIf="Categorie_cours.invalid && (Categorie_cours.dirty || Categorie_cours.touched)">
+                                    <div *ngIf="Categorie_cours.errors?.['required']">La catégorie est requise.</div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="mb-3" *ngIf="isvideo">
+                                <label class="form-label">File Upload</label>
+                                <input type="file" accept="video/*" (change)="onSelectFile($event)" >
+                                <img [src]="imgURL" height="200" *ngIf="imgURL">
+                            </div>
+                            <div class="mb-3" *ngIf="ispresentiel">
+                                <label class="form-label" for="emplacement">emplacement</label>
+                                <input type="text" name="emplacement" class="form-control" ngModel required #emplacement="ngModel">
+                                <div class="text-danger" *ngIf="emplacement.invalid && (emplacement.dirty || emplacement.touched)">
+                                    <div *ngIf="emplacement.errors?.['required']">L'emplacement est requise.</div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit"  data-bs-dismiss="offcanvas">Ajouter</button>
+                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Annuler</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <app-footer></app-footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>

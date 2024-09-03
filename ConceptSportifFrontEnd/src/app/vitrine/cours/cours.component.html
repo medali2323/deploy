@@ -1,0 +1,38 @@
+<app-nav></app-nav>
+  
+  <!-- Sections:Start -->
+  <!-- Help Center Header: Start -->
+    <!-- Tabs -->
+    <div class="tabs">
+      <div
+        class="tab-item"
+        [class.active]="selectedTab === 'inPerson'"
+        (click)="selectTab('inPerson')"
+      >
+      Présentiel
+      </div>
+      <div
+        class="tab-item"
+        [class.active]="selectedTab === 'zoom'"
+        (click)="selectTab('zoom')"
+      >
+        En Ligne
+      </div>
+      <div
+        class="tab-item"
+        [class.active]="selectedTab === 'onDemand'"
+        (click)="selectTab('onDemand')"
+      >
+      A la demande
+      </div>
+    </div>
+    
+    <div>
+      <app-cours-presentiel *ngIf="selectedTab === 'inPerson'" [coursPresentiel]="courspresentiel"></app-cours-presentiel>
+      <app-cours-en-lingne *ngIf="selectedTab === 'zoom'" [CoursEnLigne]="coursenligne"></app-cours-en-lingne>
+      <app-cours-ala-demande *ngIf="selectedTab === 'onDemand'"  [coursalademande]="coursalademande"></app-cours-ala-demande>
+    </div>
+  <!-- Footer: Start -->
+<app-footer></app-footer>
+  <!-- Footer: End -->
+  
