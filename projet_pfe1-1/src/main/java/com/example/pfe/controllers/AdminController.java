@@ -35,7 +35,7 @@ public class AdminController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<Admin> updateCategAbonnement(@PathVariable Long id, @RequestBody Admin admin) {
-        Admin ad = adminService.updateadmin(id, admin);
+        Admin ad = adminService.updateAdmin(id, admin);
         return ad != null ?
                 new ResponseEntity<>(ad, HttpStatus.OK) :
                 new ResponseEntity<>(HttpStatus.NOT_FOUND);

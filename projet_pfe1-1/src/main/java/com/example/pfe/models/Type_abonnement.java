@@ -89,13 +89,7 @@ public class Type_abonnement {
         this.prix_u_ttc = prix_u_ttc;
     }
 
-    public List<Vente_abonnement> getVenteAbonnements() {
-        return venteAbonnements;
-    }
-
-    public void setVenteAbonnements(List<Vente_abonnement> venteAbonnements) {
-        this.venteAbonnements = venteAbonnements;
-    }
+   
 
     public Categ_abonnement getCateg_abonnement() {
         return categ_abonnement;

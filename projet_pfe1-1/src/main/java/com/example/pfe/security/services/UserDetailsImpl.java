@@ -1,6 +1,7 @@
 package com.example.pfe.security.services;
 
 import com.example.pfe.models.Admin;
+import com.example.pfe.models.Condidat;
 import com.example.pfe.models.Instructor;
 import com.example.pfe.models.Represantant;
 import com.example.pfe.models.User;
@@ -41,8 +42,9 @@ public class UserDetailsImpl implements UserDetails {
             authorities = ((Represantant) user).getAuthorities(); // Correction ici
         } else if (user instanceof Instructor) {
             authorities = ((Instructor) user).getAuthorities();
+        } else if (user instanceof Condidat) {
+            authorities = ((Condidat) user).getAuthorities();
         }
-
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),

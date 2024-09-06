@@ -11,5 +11,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface CoursRepository extends JpaRepository<Cours, Long> {
     List<Cours> findByApprouve(Boolean approuve);
+    List<Cours> findByInstructorId(Long instructorId);
 
+    @Query("SELECT c FROM Cours c JOIN c.lignesCours lc WHERE lc.condidat.id = :condidatId")
+    List<Cours> findByCondidatId(@Param("condidatId") Long condidatId);
 }

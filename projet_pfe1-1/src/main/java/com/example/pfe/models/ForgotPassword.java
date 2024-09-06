@@ -19,18 +19,21 @@ public class ForgotPassword {
     @Column(nullable = false)
     private Date expirationTime;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)  // Assurez-vous de nommer la colonne correctement
     private User user;
 
     // Add default constructor
     public ForgotPassword() {
         // Default constructor
     }
+
     public ForgotPassword(int fpid, Integer otp, Date expirationTime, User user) {
         this.fpid = fpid;
         this.otp = otp;
         this.expirationTime = expirationTime;
         this.user = user;
     }
+
     // Getters and setters
 }

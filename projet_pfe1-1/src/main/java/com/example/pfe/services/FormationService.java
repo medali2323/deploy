@@ -1,5 +1,6 @@
 package com.example.pfe.services;
 
+import com.example.pfe.models.Cours;
 import com.example.pfe.models.Formation;
 import com.example.pfe.repository.FormationRepository;
 
@@ -42,5 +43,8 @@ public class FormationService {
 
     public List<Formation> findAllNonApprouve() {
         return formationRepository.findByApprouve(false);
+    }
+    public List<Formation> findByInstructorId(Long instructorId) {
+        return formationRepository.findByInstructorId(instructorId);
     }
 }

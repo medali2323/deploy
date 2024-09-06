@@ -19,7 +19,9 @@ import java.util.List;
 public class CategFormationController {
     @Autowired
     private Categ_formationService categFormationService;
-
+    
+    
+    @PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
     @GetMapping
     public ResponseEntity<List<Categ_formation>> getAllCategFormations() {
         List<Categ_formation> categFormations = categFormationService.getAllCategories();

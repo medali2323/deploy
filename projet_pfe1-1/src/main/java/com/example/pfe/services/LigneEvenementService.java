@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.pfe.models.Evenement;
 import com.example.pfe.models.Instructor;
 import com.example.pfe.models.LigneEvenement;
 import com.example.pfe.repository.LigneEvenementRepository;
@@ -50,6 +51,10 @@ public class LigneEvenementService {
 	    }
 	    public List<Instructor> getInstructorsNotByEvenementId(Long EvenementId) {
 	        return LigneEvenementRepository.findInstructorsNotInEvenement(EvenementId);
+	    }
+	    
+	    public List<Evenement> findDistinctEvenementByInstructors(Long InstructorId) {
+	        return LigneEvenementRepository.findDistinctEvenementByInstructors(InstructorId);
 	    }
 	}
 

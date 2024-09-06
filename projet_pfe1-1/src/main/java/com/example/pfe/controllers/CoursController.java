@@ -7,18 +7,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.pfe.dto.CoursWithLigneCoursDTO;
 import com.example.pfe.models.Cours;
 import com.example.pfe.services.CoursService;
+import com.example.pfe.services.LigneCoursService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/Cours")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR') or hasRole('CANDIDAT')")
 
 public class CoursController {
     @Autowired
     private CoursService CoursService;
+    @Autowired
+    private LigneCoursService ligneCoursService;
 
     @GetMapping
     public ResponseEntity<List<Cours>> getAllCourss() {
@@ -61,5 +66,19 @@ public class CoursController {
     @GetMapping("/non-approuves")
     public List<Cours> getAllCoursNonApprouves() {
         return CoursService.findAllNonApprouve();
+    }
+    @GetMapping("/instructor/{instructorId}")
+    public ResponseEntity<List<Cours>> getCoursByInstructor(@PathVariable Long instructorId) {
+    	System.out.println("aaaa");
+        List<Cours> cours = CoursService.findByInstructorId(instructorId);
+        if (cours.isEmpty()) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(cours, HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('CANDIDAT')")
+    @GetMapping("/condidat/{condidatId}")
+    public List<Cours> getCoursByCondidatId(@PathVariable Long condidatId) {
+        return CoursService.getCoursByCondidatId(condidatId);
     }
 }

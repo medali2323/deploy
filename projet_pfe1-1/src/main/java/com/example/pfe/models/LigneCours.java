@@ -14,12 +14,17 @@ public class LigneCours {
 	    private Long id;
 
 	    @ManyToOne
-	    @JoinColumn(name = "cours_id")
-	    private Cours Cours;
+	    private Cours cours;
 
 	    @ManyToOne
 	    private Condidat condidat;
-
+	    
+	    
+	    private boolean paye;
+	    
+	    private boolean approuve;
+	    
+	    
 		public Long getId() {
 			return id;
 		}
@@ -28,12 +33,14 @@ public class LigneCours {
 			this.id = id;
 		}
 
+	
+
 		public Cours getCours() {
-			return Cours;
+			return cours;
 		}
 
-		public void setCours(Cours Cours) {
-			this.Cours = Cours;
+		public void setCours(Cours cours) {
+			this.cours = cours;
 		}
 
 		public Condidat getCondidat() {
@@ -42,6 +49,22 @@ public class LigneCours {
 
 		public void setCondidat(Condidat condidat) {
 			this.condidat = condidat;
+		}
+
+		public boolean isPaye() {
+			return paye;
+		}
+
+		public void setPaye(boolean paye) {
+			this.paye = paye;
+		}
+
+		public boolean isApprouve() {
+			return approuve;
+		}
+
+		public void setApprouve(boolean approuve) {
+			this.approuve = approuve;
 		}
 
 	

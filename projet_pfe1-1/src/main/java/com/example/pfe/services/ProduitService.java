@@ -30,8 +30,8 @@ public class ProduitService {
                             "WHERE lv.produit_id = :produitId";
 
         String bonSortieQuery = "SELECT COALESCE(SUM(lbs.quantite), 0) " +
-                                "FROM ligne_bonsortie lbs " +
-                                "JOIN bonsortie bs ON lbs.bonsortie_id = bs.id " +
+                                "FROM ligne_bon_sortie lbs " +
+                                "JOIN bon_sortie bs ON lbs.bon_sortie_id = bs.id " +
                                 "WHERE lbs.produit_id = :produitId";
 
         Query stockQueryObj = entityManager.createNativeQuery(stockQuery);

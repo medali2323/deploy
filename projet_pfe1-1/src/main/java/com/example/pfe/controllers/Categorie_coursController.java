@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/Categorie_cours")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
 public class Categorie_coursController {
     @Autowired
     private Categorie_coursService categorie_coursService;

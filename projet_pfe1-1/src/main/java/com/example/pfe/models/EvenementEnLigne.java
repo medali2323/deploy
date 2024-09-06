@@ -8,8 +8,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
+@DiscriminatorValue("EvenementEnLigne")
 
-@PrimaryKeyJoinColumn(name="id")
 public class EvenementEnLigne extends Evenement {
     private String linkMeet;
 

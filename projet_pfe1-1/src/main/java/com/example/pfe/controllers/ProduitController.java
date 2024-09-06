@@ -54,7 +54,7 @@ public class ProduitController {
     }
 
 
-    @PostMapping("/add")
+    @PostMapping()
     public Produit addProduit  (@ModelAttribute Produit student, @RequestParam("file") MultipartFile file) throws IOException { 
     	String originalFilename = file.getOriginalFilename();
     	

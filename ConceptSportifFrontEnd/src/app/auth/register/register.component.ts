@@ -27,10 +27,9 @@ export class RegisterComponent {
       password: f.value.password,
       username:f.value.username
     };
-    f.value.username=f.value.nom+"_"+f.value.PREnom
-    f.value.username=f.value.nom+"_"+f.value.PREnom
+    f.value.username=f.value.nom+"_"+f.value.prenom
     f.value.categCondidat={
-      id:5
+      id:1
     }
     console.log(f.value);
 

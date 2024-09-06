@@ -23,7 +23,7 @@ import com.example.pfe.services.LigneCoursService;
 
 @RestController
 @RequestMapping("/api/LigneCours")
-@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
+@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR') or hasRole('CANDIDAT')")
 
 public class LigneCoursController {
     @Autowired
@@ -64,6 +64,13 @@ public class LigneCoursController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
  
-   
+    @GetMapping("/condidat/{condidatId}")
+    public List<LigneCours> getCoursByCondidatId(@PathVariable Long condidatId) {
+        return LigneCoursService.getCoursByCondidatId(condidatId);
+    }
+    @GetMapping("/condidat/{condidatId}/{coursId}")
+    public List<LigneCours> getCoursByCondidatId(@PathVariable Long condidatId,@PathVariable Long coursId) {
+    return LigneCoursService.getLigneCoursByCondidatIdCours_Id(condidatId,coursId);
+}
 }
 

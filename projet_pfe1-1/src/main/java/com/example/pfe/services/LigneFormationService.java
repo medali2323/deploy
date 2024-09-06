@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.pfe.models.Condidat;
+import com.example.pfe.models.LigneCours;
 import com.example.pfe.models.LigneFormation;
 import com.example.pfe.repository.LigneFormationRepository;
 
@@ -46,7 +47,12 @@ public class LigneFormationService {
 	        }
 	    }
 	   
-	  
+	    public List<LigneFormation> getLigneFormationByCondidatId(Long condidatId) {
+	        return LigneFormationRepository.findByLigneFormation_Condidat_Id(condidatId);
+	    }
+	    public List<LigneFormation> getLigneFormationByCondidatIdFormation_Id(Long condidatId,Long formationId) {
+	        return LigneFormationRepository.findByLigneFormation_Condidat_Id_Formation_Id(condidatId,formationId);
+	    }
 	}
 
 

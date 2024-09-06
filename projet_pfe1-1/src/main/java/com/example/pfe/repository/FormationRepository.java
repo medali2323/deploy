@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FormationRepository extends JpaRepository<Formation, Long> {
     List<Formation> findByApprouve(Boolean approuve);
+    List<Formation> findByInstructorId(Long instructorId);
+
 }

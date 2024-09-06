@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.pfe.models.Admin;
+import com.example.pfe.models.Condidat;
 import com.example.pfe.models.ERole;
 import com.example.pfe.models.Role;
 import com.example.pfe.models.User;
@@ -27,6 +29,8 @@ import com.example.pfe.repository.*;
 import com.example.pfe.security.jwt.JwtUtils;
 import com.example.pfe.security.services.UserDetailsImpl;
 import com.example.pfe.security.services.UserDetailsServiceImpl;
+import com.example.pfe.services.AdminService;
+import com.example.pfe.services.CondidatService;
 import com.example.pfe.services.UserService;
 
 import java.util.HashSet;
@@ -55,8 +59,20 @@ public class AuthController {
     JwtUtils jwtUtils;
     @Autowired
       UserService userService;
-
-  
+    @Autowired
+    private CondidatService CondidatService;
+    
+    @PostMapping("/registerCondidat")
+    public ResponseEntity<Condidat> addCondidat(@RequestBody Condidat Condidat) {
+        Condidat newCondidat = CondidatService.addCondidat(Condidat);
+        return new ResponseEntity<>(newCondidat, HttpStatus.CREATED);
+    }
+    @Autowired
+    private AdminService adminService;
+    @PostMapping("addadmin")
+    public Admin createAdmin(@RequestBody Admin admin) {
+        return adminService.saveAdmin(admin);
+    }
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 

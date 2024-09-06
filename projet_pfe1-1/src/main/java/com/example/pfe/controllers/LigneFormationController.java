@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pfe.models.Condidat;
 import com.example.pfe.models.Instructor;
+import com.example.pfe.models.LigneCours;
 import com.example.pfe.models.LigneFormation;
 import com.example.pfe.services.LigneFormationService;
 
 
 @RestController
 @RequestMapping("/api/LigneFormation")
-@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
+@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR') or hasRole('CANDIDAT')")
 
 public class LigneFormationController {
     @Autowired
@@ -64,6 +65,12 @@ public class LigneFormationController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/condidat/{condidatId}")
+    public List<LigneFormation> getCoursByCondidatId(@PathVariable Long condidatId) {
+    return LigneFormationService.getLigneFormationByCondidatId(condidatId);
 }
-
-
+    @GetMapping("/condidat/{condidatId}/{formationId}")
+    public List<LigneFormation> getCoursByCondidatId(@PathVariable Long condidatId,@PathVariable Long formationId) {
+    return LigneFormationService.getLigneFormationByCondidatIdFormation_Id(condidatId,formationId);
+}
+}

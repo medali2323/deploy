@@ -53,7 +53,7 @@ public class ForgotPasswordController {
 	                .build();
 
 	        ForgotPassword fp = ForgotPassword.builder().otp(otp)
-	                .expirationTime(new Date(System.currentTimeMillis() + 10000 * 1000))
+	        		.expirationTime(new Date(System.currentTimeMillis() + 3 * 60 * 1000))
 	                .user(user)
 	                .build();
 

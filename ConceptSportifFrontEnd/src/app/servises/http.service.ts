@@ -45,6 +45,9 @@ export class HttpService {
     return this.http.post(`${this.apiUrl}/api/auth/registerCondidat`, data);
   }
 
+  registeradmin(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/auth/addadmin`, data);
+  }
   login(data: any): Observable<any> {
     console.log(data);
     return this.http.post(`${this.apiUrl}/api/auth/signin`, data);

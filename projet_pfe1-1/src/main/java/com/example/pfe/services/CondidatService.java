@@ -4,12 +4,17 @@ import com.example.pfe.models.Condidat;
 import com.example.pfe.repository.CondidatRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class CondidatService {
+	 @Autowired
+	    private PasswordEncoder passwordEncoder;
     @Autowired
     private CondidatRepository condidatRepository;
 
@@ -22,6 +27,9 @@ public class CondidatService {
     }
 
     public Condidat addCondidat(Condidat condidat) {
+    	 String encodedPassword = passwordEncoder.encode(condidat.getPassword());
+   	  condidat.setPassword(encodedPassword);
+   	  condidat.setAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_CANDIDAT")));
         return condidatRepository.save(condidat);
     }
 

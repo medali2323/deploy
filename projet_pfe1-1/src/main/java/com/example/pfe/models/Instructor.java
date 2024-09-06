@@ -116,13 +116,6 @@ public class Instructor extends User {
 		this.categInstructeur = categInstructeur;
 	}
 
-	public List<Vente_abonnement> getVenteAbonnements() {
-		return venteAbonnements;
-	}
-
-	public void setVenteAbonnements(List<Vente_abonnement> venteAbonnements) {
-		this.venteAbonnements = venteAbonnements;
-	}
 
 	
 	public Compte getCompte() {
