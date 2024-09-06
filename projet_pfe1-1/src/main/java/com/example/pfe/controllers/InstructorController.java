@@ -32,7 +32,7 @@ import java.util.Date;
 @RestController
 
 @RequestMapping("/api/Instructor")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
 
 public class InstructorController {
     @Autowired

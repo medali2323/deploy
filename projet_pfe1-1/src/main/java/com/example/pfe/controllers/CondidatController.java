@@ -25,7 +25,7 @@ public class CondidatController {
         List<Condidat> Condidats = CondidatService.getAllCondidats();
         return new ResponseEntity<>(Condidats, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR') or hasRole('CANDIDAT') ")
     @GetMapping("/{id}")
     public ResponseEntity<Condidat> getCondidatById(@PathVariable Long id) {
     	Condidat Condidat = CondidatService.getCondidatById(id);

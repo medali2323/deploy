@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pfe.models.Evenement;
 import com.example.pfe.models.Instructor;
 import com.example.pfe.models.LigneEvenement;
 import com.example.pfe.services.LigneEvenementService;
@@ -69,6 +70,11 @@ public class LigneEvenementController {
     @GetMapping("/instructorsnot/{EvenementId}")
     public ResponseEntity<List<Instructor>> getInstructorsnotByEvenementId(@PathVariable Long EvenementId) {
         List<Instructor> instructors = LigneEvenementService.getInstructorsNotByEvenementId(EvenementId);
+        return ResponseEntity.ok(instructors);
+    }
+    @GetMapping("/evenements/{InstructorId}")
+    public ResponseEntity<List<Evenement>> getEvenementByInstructorsId(@PathVariable Long InstructorId) {
+        List<Evenement> instructors = LigneEvenementService.findDistinctEvenementByInstructors(InstructorId);
         return ResponseEntity.ok(instructors);
     }
 }

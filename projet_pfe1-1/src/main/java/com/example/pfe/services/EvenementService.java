@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.pfe.models.Evenement;
+import com.example.pfe.models.Evenement;
 import com.example.pfe.repository.EvenementRepository;
 
 import jakarta.persistence.EntityManager;
@@ -25,12 +26,9 @@ public class EvenementService {
 	        this.evenementRepository = evenementRepository;
 	    }
 	    public List<Evenement> getAllEvenements() {
-	        Query query = entityManager.createNativeQuery(
-	                "SELECT * FROM evenement " +
-	                        "LEFT JOIN evenement_en_ligne ON evenement.id = evenement_en_ligne.id " +
-	                        "LEFT JOIN evenement_presentiel ON evenement.id = evenement_presentiel.id", Evenement.class);
+	        
 
-	        return query.getResultList();
+	        return evenementRepository.findAll();
 	    }
 	    public List<Evenement> findAllApprouve() {
 	        return evenementRepository.findByApprouve(true);
@@ -38,5 +36,12 @@ public class EvenementService {
 
 	    public List<Evenement> findAllNonApprouve() {
 	        return evenementRepository.findByApprouve(false);
+	    }
+	    public Evenement updateEvenement(Long id, Evenement Evenement) {
+	        if (evenementRepository.existsById(id)) {
+	            Evenement.setId(id);
+	            return evenementRepository.save(Evenement);
+	        }
+	        return null;
 	    }
 }

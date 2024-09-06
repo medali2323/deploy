@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.pfe.dto.CoursWithLigneCoursDTO;
 import com.example.pfe.models.Condidat;
+import com.example.pfe.models.LigneCours;
 import com.example.pfe.models.LigneCours;
 import com.example.pfe.repository.LigneCoursRepository;
 
@@ -46,7 +48,12 @@ public class LigneCoursService {
 	        }
 	    }
 	   
-	  
+	    public List<LigneCours> getCoursByCondidatId(Long condidatId) {
+	        return LigneCoursRepository.findByLignesCours_Condidat_Id(condidatId);
+	    }
+	    public List<LigneCours> getLigneCoursByCondidatIdCours_Id(Long condidatId,Long CoursId) {
+	        return LigneCoursRepository.findByLignecours_Condidat_Id_cours_Id(condidatId,CoursId);
+	    }
 	}
 
 

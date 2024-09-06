@@ -1,18 +1,27 @@
 package com.example.pfe.models;
+import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-
-import java.util.Date;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class Cours {
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE", length = 20)
+public  class Cours {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,8 +37,10 @@ public class Cours {
    @ManyToOne
    @JoinColumn(name = "instructor_id")
    private Instructor instructor;
-   @OneToMany(mappedBy = "Cours")
+   @OneToMany(mappedBy = "cours")
    private List<LigneCours> lignesCours;
+   
+   
     // Getters and setters
     public Long getId() {
         return id;
@@ -102,5 +113,24 @@ public class Cours {
 	public void setApprouve(Boolean approuve) {
 		this.approuve = approuve;
 	}
+
+	public Categorie_cours getCategorie_cours() {
+		return Categorie_cours;
+	}
+
+	public void setCategorie_cours(Categorie_cours categorie_cours) {
+		Categorie_cours = categorie_cours;
+	}
+
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	
+	
     
 }

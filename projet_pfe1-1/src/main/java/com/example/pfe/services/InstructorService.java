@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InstructorService {
@@ -34,9 +35,11 @@ public class InstructorService {
     }
 
     public Instructor updateInstructor(Long id, Instructor instructor) {
-        if (instructorRepository.existsById(id)) {
-            instructor.setId(id);
-            return instructorRepository.save(instructor);
+        Optional<Instructor> optionalInstructor = instructorRepository.findById(id);
+        if (optionalInstructor.isPresent()) {
+            Instructor existingInstructor = optionalInstructor.get();
+            existingInstructor.setAuthorities(instructor.getAuthorities() != null ? instructor.getAuthorities() : existingInstructor.getAuthorities());
+            return instructorRepository.save(existingInstructor);
         }
         return null;
     }

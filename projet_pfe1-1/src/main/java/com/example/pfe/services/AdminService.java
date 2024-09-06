@@ -2,6 +2,7 @@ package com.example.pfe.services;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.pfe.models.Admin;
+import com.example.pfe.models.Instructor;
 import com.example.pfe.models.Admin;
 import com.example.pfe.repository.AdminRepository;
 
@@ -34,12 +36,15 @@ public class AdminService {
     public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
     }
-    public Admin updateadmin(Long id, Admin admin) {
-        if (adminRepository.existsById(id)) {
-            admin.setId(id);
-            return adminRepository.save(admin);
+    public Admin updateAdmin(Long id, Admin admin) {
+        Optional<Admin> optionalInstructor = adminRepository.findById(id);
+        if (optionalInstructor.isPresent()) {
+            Admin existingInstructor = optionalInstructor.get();
+            existingInstructor.setAuthorities(admin.getAuthorities() != null ? admin.getAuthorities() : existingInstructor.getAuthorities());
+            return adminRepository.save(existingInstructor);
         }
         return null;
+   
     }
     public void deleteAdmin(Long id) {
         adminRepository.deleteById(id);

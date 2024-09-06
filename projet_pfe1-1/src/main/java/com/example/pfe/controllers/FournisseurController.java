@@ -33,6 +33,7 @@ public class FournisseurController {
     public Fournisseur updateFournisseur(@PathVariable Long id, @RequestBody Fournisseur fournisseur) {
         return fournisseurService.updateFournisseur(id, fournisseur);
     }
+    
     @GetMapping("/{id}")
     public Fournisseur getFournisseur(@PathVariable Long id) {
         return fournisseurService.getFournisseurById(id);

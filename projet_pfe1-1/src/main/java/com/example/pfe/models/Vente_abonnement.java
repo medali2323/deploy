@@ -15,9 +15,9 @@ public class Vente_abonnement {
     private double montantHt;
     private double tauxTva;
     private double montantTtc;
-    private String paiement;
+    private double paiement;
     private boolean solder;
-    private Date dernierVente;
+    private boolean dernierVente;
     private Date datedeb;
     private Date datefiin;
 
@@ -84,14 +84,7 @@ public class Vente_abonnement {
         this.montantTtc = montantTtc;
     }
 
-    public String getPaiement() {
-        return paiement;
-    }
-
-    public void setPaiement(String paiement) {
-        this.paiement = paiement;
-    }
-
+   
     public boolean isSolder() {
         return solder;
     }
@@ -116,12 +109,39 @@ public class Vente_abonnement {
 		this.datefiin = datefiin;
 	}
 
-	public Date getDernierVente() {
-        return dernierVente;
-    }
+	
 
-    public void setDernierVente(Date dernierVente) {
-        this.dernierVente = dernierVente;
-    }
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	public Type_abonnement getTypeAbonnement() {
+		return typeAbonnement;
+	}
+
+	public void setTypeAbonnement(Type_abonnement typeAbonnement) {
+		this.typeAbonnement = typeAbonnement;
+	}
+
+	public double getPaiement() {
+		return paiement;
+	}
+
+	public void setPaiement(double paiement) {
+		this.paiement = paiement;
+	}
+
+	public boolean isDernierVente() {
+		return dernierVente;
+	}
+
+	public void setDernierVente(boolean dernierVente) {
+		this.dernierVente = dernierVente;
+	}
+    
 
 }

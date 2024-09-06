@@ -43,4 +43,11 @@ public class CoursService {
     public List<Cours> findAllNonApprouve() {
         return coursRepository.findByApprouve(false);
     }
+
+    public List<Cours> findByInstructorId(Long instructorId) {
+        return coursRepository.findByInstructorId(instructorId);
+    }
+    public List<Cours> getCoursByCondidatId(Long condidatId) {
+        return coursRepository.findByCondidatId(condidatId);
+    }
 }

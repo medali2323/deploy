@@ -9,6 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { CaComponent } from './ca/ca.component';
 
 const authroutes: Routes = [
   {
@@ -18,6 +19,10 @@ const authroutes: Routes = [
   {
     path:'register',
     component:RegisterComponent
+  },
+  {
+    path:'registeradmin',
+    component:CaComponent
   },
   {
     path:'forget_password',
@@ -39,7 +44,8 @@ const authroutes: Routes = [
     RegisterComponent,
     ResetPasswordComponent,
     ForgetPasswordComponent,
-    GoogleLoginComponent
+    GoogleLoginComponent,
+    CaComponent
   ],
   imports: [
     CommonModule,

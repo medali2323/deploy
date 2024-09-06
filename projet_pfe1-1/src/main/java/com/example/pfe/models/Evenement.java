@@ -1,19 +1,20 @@
 package com.example.pfe.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING, length = 20)
-@JsonSubTypes({
-    @JsonSubTypes.Type(value = EvenementEnLigne.class, name = "EvenementEnLigne"),
-    @JsonSubTypes.Type(value = EvenementPresentiel.class, name = "EvenementPresentiel")
-})
-public class Evenement {
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE", length = 4)
+
+public  class Evenement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
