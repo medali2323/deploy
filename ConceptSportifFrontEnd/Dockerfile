@@ -1,13 +1,14 @@
 # base image
-FROM node:20
-# # set working directory
+FROM node:18.18
+
+# set working directory
 WORKDIR /app
 COPY . .
-
+RUN npm install -g @angular/cli@16.2.0
 RUN npm i --force
-RUN npm install -g @angular/cli@18.2.1
+# # Specify environment variables (e.g., backend API URL)
+# # ENV BACKEND_API_URL=http://backend:8081
 
 EXPOSE 4200
-
 # start app
-CMD ng serve --host 0.0.0.0
+CMD ng serve --host 0.0.0.0 
