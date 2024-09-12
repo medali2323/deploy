@@ -1,56 +1,66 @@
 version: "3"
 services:
     mysql:
+        image: mysql:8.0
+        # container_name: mysqlcontainer
         ports:
             - 3307:3306
-        container_name: mysqlcontainer
         environment:
-          - MYSQL_DATABASE=zengym
-          - MYSQL_ROOT_PASSWORD=root  # You need this for MySQL root user password
+            - MYSQL_DATABASE=zengym
+            - MYSQL_ROOT_PASSWORD=root
         volumes:
-          - ./backup_data/db:/var/lib/mysql
-        image: mysql:8.0  # Specify version for consistency
+            - ./backup_data/db:/var/lib/mysql
         networks:
-          - sportif_network
-          
-    backend:
-        ports:
-            - 8090:8082
-        environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlcontainer:3306/zengym  # Fix environment variables
-          - SPRING_DATASOURCE_USERNAME=root
-          - SPRING_DATASOURCE_PASSWORD=root
-        build: ./projet_pfe1-1
-        depends_on:
-          - mysql
-        networks:
-          - sportif_network
-       
+            - sportif_network
+
     frontend:
+        build: ./ConceptSportifFrontEnd
+        # container_name: frontend
         ports:
             - 4444:4200
-        container_name: frontend
-        build: ./ConceptSportifFrontEnd
+        # environment:
+        #     - BACKEND_API_URL=http://backend:8081  # Pass backend URL to the frontend
+        depends_on:
+            - backend
         networks:
-          - sportif_network
+            - sportif_network
+
+          
+    backend:
+        build: ./projet_pfe1-1
+        # container_name: backend
+        ports:
+            - 8090:8081
+        # environment:
+        #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlcontainer:3306/zengym
+        #     - SPRING_DATASOURCE_USERNAME=root
+        #     - SPRING_DATASOURCE_PASSWORD=root
+        depends_on:
+            - mysql
+        networks:
+            - sportif_network
+       
 
 
 
-    # reverseproxy:
-    #  image: nginx:alpine
-    #  restart: unless-stopped
-    #  ports:
-    #    - "80:80"
-    #    - "443:443"
-    #  volumes:
-    #    - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    #    - /etc/letsencrypt/live/dalidev.ddns.net/fullchain.pem:/etc/ssl/certs/fullchain.pem
-    #    - /etc/letsencrypt/live/dalidev.ddns.net/privkey.pem:/etc/ssl/private/privkey.pem
-    #  depends_on:
-    #    - frontend
-    #    - backend
-    #  networks:
-    #    - sportif_network
+
+
+
+    reverseproxy:
+     image: nginx:alpine
+     restart: unless-stopped
+     ports:
+       - "80:80"
+       - "443:443"
+     volumes:
+       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+       - /etc/letsencrypt/live/dalidev.ddns.net/fullchain.pem:/etc/ssl/certs/fullchain.pem
+       - /etc/letsencrypt/live/dalidev.ddns.net/privkey.pem:/etc/ssl/private/privkey.pem
+     depends_on:
+       - frontend
+       - backend
+     networks:
+       - sportif_network
           
 networks:
     sportif_network:
