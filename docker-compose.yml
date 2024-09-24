@@ -26,10 +26,6 @@ services:
         # container_name: backend
         ports:
             - 8090:8081
-        # environment:
-        #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlcontainer:3306/zengym
-        #     - SPRING_DATASOURCE_USERNAME=root
-        #     - SPRING_DATASOURCE_PASSWORD=root
         depends_on:
             - mysql
         networks:
