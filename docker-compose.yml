@@ -2,7 +2,6 @@ version: "3"
 services:
     mysql:
         image: mysql:8.0
-        # container_name: mysqlcontainer
         ports:
             - 3307:3306
         environment:
