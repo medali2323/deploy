@@ -15,7 +15,6 @@ services:
 
     frontend:
         image: medali99/frontend
-        # container_name: frontend
         ports:
             - 4444:4200
         # environment:
