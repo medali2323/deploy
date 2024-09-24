@@ -20,9 +20,7 @@ services:
         depends_on:
             - backend
         networks:
-            - sportif_network
-
-          
+            - sportif_network        
     backend:
         image: medali99/backend
         # container_name: backend
