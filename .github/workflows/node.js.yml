@@ -38,14 +38,14 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: medali99/backend:latest
+          tags: medali99/backend
           context: ./projet_pfe1-1
 
       - name: Build and push frontend
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: medali99/frontend:latest
+          tags: medali99/frontend
           context: ./ConceptSportifFrontEnd
 
   continuous_deployment:

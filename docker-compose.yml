@@ -14,7 +14,7 @@ services:
             - sportif_network
 
     frontend:
-        build: ./ConceptSportifFrontEnd
+        image: medali99/frontend
         # container_name: frontend
         ports:
             - 4444:4200
@@ -27,7 +27,7 @@ services:
 
           
     backend:
-        build: ./projet_pfe1-1
+        image: medali99/backend
         # container_name: backend
         ports:
             - 8090:8081
