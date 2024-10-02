@@ -24,6 +24,11 @@ jobs:
           source: .
           target: /home/ubuntu/deoloy/
 
+      - name: Debug SSH Connection (Optional)
+        run: |
+            ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.IP_ADDRESS }} "echo 'SSH Connected Successfully'"
+
+
       - name: Debug directory structure
         run: |
           ls -R
