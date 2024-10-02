@@ -23,6 +23,8 @@ jobs:
           port: 22
           source: .
           target: /home/ubuntu/deoloy/
+          key_path: ~/.ssh/id_rsa  # Explicitly set key_path
+
 
       - name: Debug SSH Connection (Optional)
         run: |
@@ -70,3 +72,5 @@ jobs:
             sudo docker-compose down
             sudo docker-compose pull
             sudo docker-compose up -d
+            key_path: ~/.ssh/id_rsa  # Explicitly set key_path
+
