@@ -1,3 +1,4 @@
+
 # # base image
 # FROM node:20
 # # # set working directory
@@ -38,5 +39,6 @@ COPY --from=builder /app/dist/ConceptSportifFrontEnd /usr/share/nginx/html
 # Expose port 80 for Nginx
 EXPOSE 80
 EXPOSE 443
+
 
 

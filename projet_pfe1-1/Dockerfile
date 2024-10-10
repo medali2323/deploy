@@ -2,8 +2,10 @@
 FROM maven:3.8.3-openjdk-17 AS build
 WORKDIR /build
 COPY pom.xml .
-RUN mvn dependency:go-offline
 COPY src ./src
+
+# Skip tests during build
+
 RUN mvn clean package -Dmaven.test.skip=true
 
 # Runtime stage
