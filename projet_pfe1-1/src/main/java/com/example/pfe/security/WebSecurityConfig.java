@@ -82,7 +82,11 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
+<<<<<<< HEAD
         config.addAllowedOrigin("http://frontend:4444");
+=======
+        config.addAllowedOrigin("http://frontend:443");
+>>>>>>> master
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
