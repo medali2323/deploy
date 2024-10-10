@@ -9,7 +9,7 @@ import { map, filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class HttpService {
-    private apiUrl = 'https://backend:8081'; 
+    private apiUrl = 'http://backend:8081'; 
    //private apiUrl = 'http://backend:8081'; 
    private token = localStorage.getItem("token");
    private headers = new HttpHeaders({
@@ -99,21 +99,21 @@ export class HttpService {
       .set('startDate', startDate)
       .set('endDate', endDate);
 
-    return this.http.get<any>("https://backend:8081/api/bonentrees/betweenDates", { headers: this.headers, params: params });
+    return this.http.get<any>("http://backend:8081/api/bonentrees/betweenDates", { headers: this.headers, params: params });
   }
   getBonSortiesBetweenDates(startDate: string, endDate: string): Observable<any> {
     let params = new HttpParams()
       .set('startDate', startDate)
       .set('endDate', endDate);
 
-    return this.http.get<any>("https://backend:8081/api/bonsorties/betweenDates", { headers: this.headers, params: params });
+    return this.http.get<any>("http://backend:8081/api/bonsorties/betweenDates", { headers: this.headers, params: params });
   }
   getoperationBetweenDates(startDate: string, endDate: string): Observable<any> {
     let params = new HttpParams()
       .set('startDate', startDate)
       .set('endDate', endDate);
 
-    return this.http.get<any>("https://backend:8081/api/Operation/betweenDates", { headers: this.headers, params: params });
+    return this.http.get<any>("http://backend:8081/api/Operation/betweenDates", { headers: this.headers, params: params });
   }
   createtokens(data: any): Observable<any> {
     console.log(data);
