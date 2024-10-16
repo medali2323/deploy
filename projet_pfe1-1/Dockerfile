@@ -10,7 +10,7 @@ RUN mvn clean package -Dmaven.test.skip=true
 FROM amazoncorretto:17
 WORKDIR /app
 COPY --from=build /build/target/projet_pfe-*.jar /app/app.jar
-EXPOSE 8081
+EXPOSE 8082
 
 # Environment variable for database URL
 ENV DB_URL=jdbc:mysql://mysql:3306/zengym

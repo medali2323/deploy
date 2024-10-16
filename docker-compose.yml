@@ -1,8 +1,58 @@
+# version: "3"
+# services:
+#     mysql:
+#         image: mysql:8.0
+#         # container_name: mysqlcontainer
+#         ports:
+#             - 3307:3306
+#         environment:
+#             - MYSQL_DATABASE=zengym
+#             - MYSQL_ROOT_PASSWORD=root
+#         volumes:
+#             - ./backup_data/db:/var/lib/mysql
+#         networks:
+#             - sportif_network
+
+#     frontend:
+#         build: ./ConceptSportifFrontEnd
+#         # container_name: frontend
+#         ports:
+#             - 4200:4200
+#         # environment:
+#         #     - BACKEND_API_URL=http://backend:8081  # Pass backend URL to the frontend
+#         depends_on:
+#             - backend
+#         networks:
+#             - sportif_network
+
+          
+#     backend:
+#         build: ./projet_pfe1-1
+#         # container_name: backend
+#         ports:
+#             - 8081:8081
+#         # environment:
+#         #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlcontainer:3306/zengym
+#         #     - SPRING_DATASOURCE_USERNAME=root
+#         #     - SPRING_DATASOURCE_PASSWORD=root
+#         depends_on:
+#             - mysql
+#         networks:
+#             - sportif_network
+       
+
+
+
+
+          
+# networks:
+#     sportif_network:
+#         driver: bridge
+
 version: "3"
 services:
     mysql:
         image: mysql:8.0
-        # container_name: mysqlcontainer
         ports:
             - 3307:3306
         environment:
@@ -15,36 +65,22 @@ services:
 
     frontend:
         build: ./ConceptSportifFrontEnd
-        # container_name: frontend
         ports:
             - 4200:4200
-        # environment:
-        #     - BACKEND_API_URL=http://backend:8081  # Pass backend URL to the frontend
         depends_on:
             - backend
         networks:
             - sportif_network
-
-          
+   
     backend:
         build: ./projet_pfe1-1
-        # container_name: backend
         ports:
-            - 8081:8081
-        # environment:
-        #     - SPRING_DATASOURCE_URL=jdbc:mysql://mysqlcontainer:3306/zengym
-        #     - SPRING_DATASOURCE_USERNAME=root
-        #     - SPRING_DATASOURCE_PASSWORD=root
+            - 8082:8082
         depends_on:
             - mysql
         networks:
             - sportif_network
-       
-
-
-
-
-          
+             
 networks:
     sportif_network:
         driver: bridge
