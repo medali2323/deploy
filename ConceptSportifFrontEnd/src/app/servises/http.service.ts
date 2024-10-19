@@ -9,8 +9,8 @@ import { map, filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class HttpService {
-    private apiUrl = 'http://127.0.0.1:8082'; 
-   //private apiUrl = 'http://127.0.0.1:8082'; 
+    private apiUrl = 'https://dalidev.ddns.net:8082'; 
+   //private apiUrl = 'http://dalidev.ddns.net:8082'; 
    private token = localStorage.getItem("token");
    private headers = new HttpHeaders({
      'Content-Type': 'application/json',
@@ -99,21 +99,21 @@ export class HttpService {
       .set('startDate', startDate)
       .set('endDate', endDate);
 
-    return this.http.get<any>("http://127.0.0.1:8082/api/bonentrees/betweenDates", { headers: this.headers, params: params });
+    return this.http.get<any>("https://dalidev.ddns.net:8082/api/bonentrees/betweenDates", { headers: this.headers, params: params });
   }
   getBonSortiesBetweenDates(startDate: string, endDate: string): Observable<any> {
     let params = new HttpParams()
       .set('startDate', startDate)
       .set('endDate', endDate);
 
-    return this.http.get<any>("http://127.0.0.1:8082/api/bonsorties/betweenDates", { headers: this.headers, params: params });
+    return this.http.get<any>("https://dalidev.ddns.net:8082/api/bonsorties/betweenDates", { headers: this.headers, params: params });
   }
   getoperationBetweenDates(startDate: string, endDate: string): Observable<any> {
     let params = new HttpParams()
       .set('startDate', startDate)
       .set('endDate', endDate);
 
-    return this.http.get<any>("http://127.0.0.1:8082/api/Operation/betweenDates", { headers: this.headers, params: params });
+    return this.http.get<any>("https://dalidev.ddns.net:8082/api/Operation/betweenDates", { headers: this.headers, params: params });
   }
   createtokens(data: any): Observable<any> {
     console.log(data);

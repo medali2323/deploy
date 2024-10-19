@@ -83,6 +83,8 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://127.0.0.1:4200");
+        config.addAllowedOrigin("http://dalidev.ddns.net");
+        config.addAllowedOrigin("https://dalidev.ddns.net");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
